@@ -1,0 +1,107 @@
+allprojects{
+    repositories(){
+        jcenter()
+    }
+}
+
+//defining all versions
+ext{
+    //sdk and tools versions
+    buildTool = "26.0.0"
+    minimumSdk = 15
+    targetSdk = 26
+    compiledSdk = 26
+
+    //libraryVersions
+    supportLibVersion = "26.0.0-alpha1"
+    rxJava2Version = "2.1.2"
+    rxAndroidVersion = "2.0.1"
+    dagger2Version = "2.9"
+    butterKnifeVersion = "8.5.1"
+    retrofitVersion = "2.3.0"
+    okhttpVersion = '3.8.0'
+    autoValueVersion = '1.4'
+    autoValueGsonVersion = '0.4.6'
+    autoValueParcelVersion = '0.2.5'
+    autoValueParcelVersion = '0.2.5'
+    gsonVersion = '2.8.0'
+
+    //testVersions
+    junitVersion = '4.12'
+    espressoVersion = '2.2.2'
+    mockitoVersion = '2.7.1'
+    roboLectricVersion = "3.4-rc5"
+    roboLectricShadowsVersion = "3.0"
+
+
+    //libraryDependencies
+    supportDependencies = [
+            appCompat       : "com.android.support:appcompat-v7:${supportLibVersion}",
+            support         : "com.android.support:support-v4:${supportLibVersion}",
+            design          : "com.android.support:design:${supportLibVersion}",
+            cardView        : "com.android.support:cardview-v7:${supportLibVersion}",
+            recyclerView    : "com.android.support:recyclerview-v7:${supportLibVersion}"
+    ]
+
+    rxDependencies = [
+            rxJava2      : "io.reactivex.rxjava2:rxjava:${rxJava2Version}",
+            rxAndroid    : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}"
+    ]
+
+    daggerDependencies = [
+            dagger   : "com.google.dagger:dagger:${dagger2Version}",
+            daggerApt: "com.google.dagger:dagger-compiler:${dagger2Version}"
+    ]
+
+    butterKnifeDependencies = [
+            butterknife   : "com.jakewharton:butterknife:${butterKnifeVersion}",
+            butterknifeApt: "com.jakewharton:butterknife-compiler:${butterKnifeVersion}",
+    ]
+
+    retrofitDependencies = [
+            retrofit     : "com.squareup.retrofit2:retrofit:${retrofitVersion}",
+            rxJavaAdapter: "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}",
+            gsonConverter: "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
+    ]
+
+    okHttpDependencies = [
+            okhttp: "com.squareup.okhttp3:okhttp:${okhttpVersion}",
+            logging : "com.squareup.okhttp3:logging-interceptor:${okhttpVersion}",
+    ]
+
+    autoValueDependencies = [
+            autoValueApt     : "com.google.auto.value:auto-value:${autoValueVersion}",
+            autoValueProvided: "com.jakewharton.auto.value:auto-value-annotations:${autoValueVersion}",
+            gsonApt          : "com.ryanharter.auto.value:auto-value-gson:${autoValueGsonVersion}",
+            gsonProvided     : "com.ryanharter.auto.value:auto-value-gson:${autoValueGsonVersion}",
+            parcelApt        : "com.ryanharter.auto.value:auto-value-parcel:${autoValueParcelVersion}",
+            parcelAdapter    : "com.ryanharter.auto.value:auto-value-parcel-adapter:${autoValueParcelVersion}",
+    ]
+
+    otherDependencies = [
+            gsonDependency : "com.google.code.gson:gson:${gsonVersion}",
+            injectDependency : 'javax.inject:javax.inject:1',
+            javaxProvided : 'javax.annotation:jsr250-api:1.0'
+    ]
+
+    testDependencies = [
+            junitDep : "junit:junit:${junitVersion}",
+            mockitoDep : "org.mockito:mockito-core:${mockitoVersion}",
+            roboLectricDep : "org.robolectric:robolectric:${roboLectricVersion}",
+            roboLectricShadowsDep : "org.robolectric:shadows-support-v4:${roboLectricShadowsVersion}"
+
+    ]
+
+    espressoExcludeGroups = [
+            group1: "com.android.support", module1: "support-annotations",
+            group2: "com.android.support", module2: "support-v4",
+            group3: "com.android.support", module3: "appcompat-v7",
+            group4: "com.android.support", module4: "design",
+            group5: "com.android.support", module5: "recyclerview-v7",
+    ]
+
+    espressoDependency = "com.android.support.test.espresso:espresso-core:${espressoVersion}"
+    espressoContribDependency = "com.android.support.test.espresso:espresso-contrib:${espressoVersion}"
+    espressoIntentsDependency = "com.android.support.test.espresso:espresso-intents:${espressoVersion}"
+    espressoIdlingResDependency = "com.android.support.test.espresso:espresso-idling-resource:${espressoVersion}"
+}

@@ -1,0 +1,132 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.3'
+        classpath 'me.tatarka:gradle-retrolambda:3.6.1'
+    }
+}
+
+
+apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
+
+android {
+    compileSdkVersion rootProject.ext.compiledSdk
+    buildToolsVersion rootProject.ext.buildTool
+    defaultConfig {
+        applicationId "com.ahmed.alcassessment"
+        minSdkVersion rootProject.ext.minimumSdk
+        targetSdkVersion rootProject.ext.targetSdk
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dexOptions {
+        javaMaxHeapSize "12g"
+    }
+
+
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
+
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    //definitions
+    def supportDep = rootProject.ext.supportDependencies
+    def rxDep = rootProject.ext.rxDependencies
+    def daggerDep  = rootProject.ext.daggerDependencies
+    def butterKnifeDep = rootProject.ext.butterKnifeDependencies
+    def retrofitDef = rootProject.ext.retrofitDependencies
+    def okHttpDep = rootProject.ext.okHttpDependencies
+    def autoValueDep = rootProject.ext.autoValueDependencies
+    def otherDep = rootProject.ext.otherDependencies
+    def testDep = rootProject.ext.testDependencies
+    def espressoExcludeDep = rootProject.ext.espressoExcludeGroups
+    def espressoDep = rootProject.ext.espressoDependency
+    def espressoContribDep = rootProject.ext.espressoContribDependency
+    def espressoIdlingDep = rootProject.ext.espressoIdlingResDependency
+    def espressoIntentDep = rootProject.ext.espressoIntentsDependency
+
+    //androidSupportLibrary
+    compile supportDep.appCompat
+    compile supportDep.support
+    compile supportDep.design
+    compile supportDep.cardView
+    compile supportDep.recyclerView
+
+    //rx
+    compile rxDep.rxJava2
+    compile rxDep.rxAndroid
+
+    //dagger
+    compile daggerDep.dagger
+    annotationProcessor daggerDep.daggerApt
+
+    //butterKnife
+    compile butterKnifeDep.butterknife
+    annotationProcessor butterKnifeDep.butterknifeApt
+
+    //retrofit
+    compile retrofitDef.retrofit
+    compile retrofitDef.rxJavaAdapter
+    compile retrofitDef.gsonConverter
+
+    //okHttp
+    compile okHttpDep.okhttp
+    compile okHttpDep.logging
+
+    //autoValue
+    annotationProcessor autoValueDep.autoValueApt
+    provided autoValueDep.autoValueProvided
+    annotationProcessor autoValueDep.gsonApt
+    provided autoValueDep.gsonProvided
+    annotationProcessor autoValueDep.parcelApt
+    compile autoValueDep.parcelAdapter
+
+    //others
+    compile otherDep.gsonDependency
+    compile otherDep.injectDependency
+    provided otherDep.javaxProvided
+
+    compile espressoIdlingDep
+
+    //tests
+    testCompile testDep.junitDep
+    testCompile testDep.mockitoDep
+    testCompile testDep.roboLectricDep
+    testCompile testDep.roboLectricShadowsDep
+
+    androidTestCompile(espressoDep, {
+        exclude group: espressoExcludeDep.group1, module: espressoExcludeDep.module1
+        exclude group: espressoExcludeDep.group2, module: espressoExcludeDep.module2
+        exclude group: espressoExcludeDep.group3, module: espressoExcludeDep.module3
+        exclude group: espressoExcludeDep.group4, module: espressoExcludeDep.module4
+        exclude group: espressoExcludeDep.group5, module: espressoExcludeDep.module5
+    })
+
+    androidTestCompile(espressoContribDep, {
+        exclude group: espressoExcludeDep.group1, module: espressoExcludeDep.module1
+        exclude group: espressoExcludeDep.group2, module: espressoExcludeDep.module2
+        exclude group: espressoExcludeDep.group3, module: espressoExcludeDep.module3
+        exclude group: espressoExcludeDep.group4, module: espressoExcludeDep.module4
+        exclude group: espressoExcludeDep.group5, module: espressoExcludeDep.module5
+    })
+
+    androidTestCompile(espressoIntentDep, {
+        exclude group: espressoExcludeDep.group1, module: espressoExcludeDep.module1
+    })
+}
