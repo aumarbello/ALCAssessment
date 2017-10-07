@@ -5,15 +5,18 @@ import com.example.ahmed.alcassessment.data.model.RateResponseUSD;
 
 import io.reactivex.Single;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 /**
  * Created by ahmed on 10/6/17.
  */
 
 public interface ExchangeService {
-    @GET("/sub")
-    Single<RateResponseUSD> getRateInUSD();
+    @GET("/price")
+    Single<RateResponseUSD> getRateInUSD(@Query("fsym") String cryptoCurrency,
+                                         @Query("tsyms") String exchangeCurrency);
 
-    @GET("/sub")
-    Single<RateResponseEUR> getRateInEUR();
+    @GET("/price")
+    Single<RateResponseEUR> getRateInEUR(@Query("fsym") String cryptoCurrency,
+                                         @Query("tsyms") String exchangeCurrency);
 }
