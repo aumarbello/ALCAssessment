@@ -13,11 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * Created by ahmed on 10/6/17.
  */
-
+@Singleton
 public class CardDAO {
     private SQLiteDatabase database;
     private SQLHelper helper;

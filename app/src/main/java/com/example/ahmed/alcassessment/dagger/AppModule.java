@@ -26,10 +26,4 @@ public class AppModule {
     Context providesContext(){
         return application;
     }
-
-    @Provides
-    @Singleton
-    CardDAO providesCardDAO(Context context){
-        return new CardDAO(context);
-    }
 }
