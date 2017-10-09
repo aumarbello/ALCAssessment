@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="crytoCurrencies">
+        <item>BTC</item>
+        <item>ETH</item>
+    </string-array>
+
+    <string-array name="otherCurrencies">
+        <item>NGN</item>
+        <item>USD</item>
+        <item>EUR</item>
+        <item>GBP</item>
+        <item>CNY</item>
+        <item>INR</item>
+        <item>ILS</item>
+        <item>LAK</item>
+        <item>ANG</item>
+        <item>QAR</item>
+        <item>RUB</item>
+        <item>BRL</item>
+        <item>CHF</item>
+        <item>SCR</item>
+        <item>ZAR</item>
+        <item>SEK</item>
+        <item>TWD</item>
+        <item>UAH</item>
+        <item>UYU</item>
+        <item>ZWD</item>
+    </string-array>
+</resources>

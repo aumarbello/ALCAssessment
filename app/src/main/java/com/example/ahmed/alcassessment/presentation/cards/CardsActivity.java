@@ -24,7 +24,7 @@ import butterknife.Unbinder;
  * Created by ahmed on 10/6/17.
  */
 
-public class CardsActivity extends BaseActivity {
+public class CardsActivity extends BaseActivity implements AddCardDialog.CallBack {
     @Inject
     CardsPresenter presenter;
 
@@ -40,6 +40,7 @@ public class CardsActivity extends BaseActivity {
     private CardAdapter adapter;
     private Unbinder unbinder;
     private List<Card> cards;
+    private AddCardDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstance){
@@ -53,11 +54,13 @@ public class CardsActivity extends BaseActivity {
         unbinder = ButterKnife.bind(this);
 
         adapter = new CardAdapter(cards, this);
+        dialog = AddCardDialog.getInstance();
 
         cardList.setLayoutManager(new GridLayoutManager(this, 2));
         cardList.setAdapter(adapter);
 
         addCard.setOnClickListener(view -> {
+            dialog.show(getSupportFragmentManager(), "Add Card");
             Toast.makeText(this, "Adding", Toast.LENGTH_SHORT).show();
         });
     }
@@ -84,5 +87,11 @@ public class CardsActivity extends BaseActivity {
         super.onDestroy();
 
         unbinder.unbind();
+    }
+
+    @Override
+    public void addCard(String from, String to) {
+        Toast.makeText(this, "Received currencies - " + from + " and - " + to,
+                Toast.LENGTH_SHORT).show();
     }
 }
