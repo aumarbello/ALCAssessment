@@ -4,6 +4,7 @@ import com.example.ahmed.alcassessment.data.local.CardDAO;
 import com.example.ahmed.alcassessment.data.model.Card;
 import com.example.ahmed.alcassessment.data.remote.ExchangeService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -29,7 +30,7 @@ public class CardsPresenter {
 
     public List<Card> getAllCards(){
         //load cards in back round and update ui
-        return null;
+        return new ArrayList<>();
     }
 
 
