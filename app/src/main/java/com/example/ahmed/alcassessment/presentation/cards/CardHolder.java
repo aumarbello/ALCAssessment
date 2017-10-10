@@ -26,6 +26,8 @@ class CardHolder extends RecyclerView.ViewHolder {
     private ProgressBar cardIsSyncing;
     private CardsActivity activity;
     private Card card;
+    private String[] crytoSymbols;
+    private String[] otherSymbols;
 
     CardHolder(View itemView, CardsActivity activity) {
         super(itemView);
@@ -42,6 +44,9 @@ class CardHolder extends RecyclerView.ViewHolder {
         deleteCard = itemView.findViewById(R.id.delete_card);
 
         cardIsSyncing = itemView.findViewById(R.id.rate_in_sync);
+
+        crytoSymbols = activity.getResources().getStringArray(R.array.crytoCurrencies);
+        otherSymbols = activity.getResources().getStringArray(R.array.otherCurrencies);
     }
 
     void bindCard(Card card, int position){
@@ -57,9 +62,15 @@ class CardHolder extends RecyclerView.ViewHolder {
             currentRate.setVisibility(View.INVISIBLE);
         }else if (card.getCurrentRate() == 123){
             currentRate.setTextSize(10);
-            currentRate.setText("Failed to retrieve rate");
+            currentRate.setText(R.string.faied_to_retrieve);
         }else {
-            currentRate.setText(card.getCurrentRate() + "");
+            String rate = "1 " +
+                    getCryptoSymbol(card.getFrom()) +
+                    ": " +
+                    card.getCurrentRate() + " " +
+                    getSymbol(card.getTo());
+
+            currentRate.setText(rate);
         }
         setListeners(position);
     }
@@ -85,54 +96,54 @@ class CardHolder extends RecyclerView.ViewHolder {
     private String getCryptoSymbol(String currencyText){
         switch (currencyText){
             case "Ether":
-                return "ETH";
+                return crytoSymbols[1];
             default:
-                return "BTC";
+                return crytoSymbols[0];
         }
     }
 
     private String getSymbol(String currencyText){
         switch (currencyText){
             case "Naira":
-                return "NGN";
+                return otherSymbols[0];
             case "Dollar":
-                return "USD";
+                return otherSymbols[1];
             case "Euro":
-                return "EUR";
+                return otherSymbols[2];
             case "British Pound":
-                return "GBP";
+                return otherSymbols[3];
             case "Chinese Yuan":
-                return "CYN";
+                return otherSymbols[4];
             case "Indian Rupees":
-                return "INR";
+                return otherSymbols[5];
             case "Israel Shekel":
-                return "ILS";
+                return otherSymbols[6];
             case "Laos Kip":
-                return "LAK";
+                return otherSymbols[7];
             case "Netherlands Antilles Guilder":
-                return "ANG";
+                return otherSymbols[8];
             case "Qatari Riyal":
-                return "QAR";
+                return otherSymbols[9];
             case "Russian Ruble":
-                return "RUB";
+                return otherSymbols[10];
             case "Brazilian Real":
-                return "BRL";
+                return otherSymbols[11];
             case "Switzerland Franc":
-                return "CHF";
+                return otherSymbols[12];
             case "Seychelles Rupee":
-                return "SCR";
+                return otherSymbols[13];
             case "South African Rand":
-                return "ZAR";
+                return otherSymbols[14];
             case "Sweden Krona":
-                return "SEK";
+                return otherSymbols[15];
             case "Taiwan New Dollar":
-                return "TWD";
+                return otherSymbols[16];
             case "Ukraine Hryvnia":
-                return "UAH";
+                return otherSymbols[17];
             case "Uruguay Peso":
-                return "UYU";
+                return otherSymbols[18];
             case "Zimbabwe Dollar":
-                return "ZWD";
+                return otherSymbols[19];
         }
         return "";
     }

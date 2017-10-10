@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">ALCAssessment</string>
     <string name="exchange_cards">Card List</string>
+    <string name="btc">BTC</string>
+    <string name="dash">Dash</string>
+    <string name="ngn">NGN</string>
+    <string name="bitcoin">BITCOIN</string>
+    <string name="naira">NAIRA</string>
+    <string name="current_exchange_rate">Current Exchange Rate</string>
+    <string name="sync_rates">Sync Rates</string>
+    <string name="delete_card">Delete Card</string>
+    <string name="faied_to_retrieve">Failed to retrieve rate</string>
 </resources>

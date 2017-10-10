@@ -10,9 +10,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ahmed.alcassessment.R;
 
+import butterknife.BindArray;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -46,6 +48,12 @@ public class AddCardDialog extends DialogFragment {
     TextView cryptoText;
     @BindView(R.id.otherDropDownText)
     TextView otherText;
+
+    @BindArray(R.array.cryptoCurrenciesText)
+    String[] cryptoCurrenciesText;
+
+    @BindArray(R.array.otherCurrenciesText)
+    String[] otherCurrenciesText;
 
     @Override
     public void onCreate(Bundle savedInstance){
@@ -95,16 +103,18 @@ public class AddCardDialog extends DialogFragment {
                                        int position, long l) {
                 switch (position){
                     case 0:
-                        cryptoText.setText("Bitcoin");
+                        cryptoText.setText(cryptoCurrenciesText[0]);
                         break;
                     case 1:
-                        cryptoText.setText("Ether");
+                        cryptoText.setText(cryptoCurrenciesText[1]);
                 }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
+                Toast.makeText(getActivity(),
+                        "Select Choice CryptoCurrency Please",
+                        Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -122,72 +132,73 @@ public class AddCardDialog extends DialogFragment {
                                        int position, long l) {
                 switch (position){
                     case 0:
-                        otherText.setText("Naira");
+                        otherText.setText(otherCurrenciesText[0]);
                         break;
                     case 1:
-                        otherText.setText("Dollar");
+                        otherText.setText(otherCurrenciesText[1]);
                         break;
                     case 2:
-                        otherText.setText("Euro");
+                        otherText.setText(otherCurrenciesText[2]);
                         break;
                     case 3:
-                        otherText.setText("British Pound");
+                        otherText.setText(otherCurrenciesText[3]);
                         break;
                     case 4:
-                        otherText.setText("Chinese Yuan");
+                        otherText.setText(otherCurrenciesText[4]);
                         break;
                     case 5:
-                        otherText.setText("Indian Rupee");
+                        otherText.setText(otherCurrenciesText[5]);
                         break;
                     case 6:
-                        otherText.setText("Israel Shekel");
+                        otherText.setText(otherCurrenciesText[6]);
                         break;
                     case 7:
-                        otherText.setText("Laos Kip");
+                        otherText.setText(otherCurrenciesText[7]);
                         break;
                     case 8:
-                        otherText.setText("Netherlands Antilles Guilder");
+                        otherText.setText(otherCurrenciesText[8]);
                         break;
                     case 9:
-                        otherText.setText("Qatar Riyal");
+                        otherText.setText(otherCurrenciesText[9]);
                         break;
                     case 10:
-                        otherText.setText("Russian Ruble");
+                        otherText.setText(otherCurrenciesText[10]);
                         break;
                     case 11:
-                        otherText.setText("Brazil Real");
+                        otherText.setText(otherCurrenciesText[11]);
                         break;
                     case 12:
-                        otherText.setText("Switzerland Franc");
+                        otherText.setText(otherCurrenciesText[12]);
                         break;
                     case 13:
-                        otherText.setText("Seychelles Rupee");
+                        otherText.setText(otherCurrenciesText[13]);
                         break;
                     case 14:
-                        otherText.setText("South African Rand");
+                        otherText.setText(otherCurrenciesText[14]);
                         break;
                     case 15:
-                        otherText.setText("Sweden Krona");
+                        otherText.setText(otherCurrenciesText[15]);
                         break;
                     case 16:
-                        otherText.setText("Taiwan New Dollar");
+                        otherText.setText(otherCurrenciesText[16]);
                         break;
                     case 17:
-                        otherText.setText("Ukraine Hryvnia");
+                        otherText.setText(otherCurrenciesText[17]);
                         break;
                     case 18:
-                        otherText.setText("Uruguay Peso");
+                        otherText.setText(otherCurrenciesText[18]);
                         break;
                     case 19:
-                        otherText.setText("Zimbabwe Dollar");
+                        otherText.setText(otherCurrenciesText[19]);
                          break;
-                    //todo add cases for other currencies
                 }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
+                Toast.makeText(getActivity(),
+                        "Select Currency to Convert CryptoCurrency to Please",
+                        Toast.LENGTH_SHORT).show();
             }
         });
     }

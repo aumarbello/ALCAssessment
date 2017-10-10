@@ -27,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/cryptoCurrency"
-                android:text="#"
+                android:text="@string/btc"
                 android:textColor="@android:color/black"
                 android:textSize="18sp"
                 android:layout_marginLeft="20dp"
@@ -36,7 +36,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="Dash"
+                android:contentDescription="@string/dash"
                 android:src="@drawable/dash"
                 android:paddingTop="3dp"
                 />
@@ -44,7 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/otherCurrency"
-                android:text="$"
+                android:text="@string/ngn"
                 android:textColor="@android:color/black"
                 android:textSize="18sp"
                 android:layout_marginLeft="20dp"
@@ -57,43 +57,48 @@
             android:layout_below="@id/symbols"
             android:background="@android:color/black"
             android:id="@+id/divider_one"/>
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/textCryptCurrency"
-            android:text="CryptoCurrency: BTC"
+            android:orientation="horizontal"
             android:layout_below="@id/divider_one"
-            android:textColor="@android:color/black"
-            android:textSize="18sp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textOtherCurrency"
-            android:text="Other Currency: Dollar"
-            android:layout_below="@id/textCryptCurrency"
-            android:textColor="@android:color/black"
-            android:textSize="18sp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            />
+            android:id="@+id/currencies_text">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textCryptCurrency"
+                android:text="@string/bitcoin"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textOtherCurrency"
+                android:text="@string/naira"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                />
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:orientation="horizontal"
-            android:layout_below="@id/textOtherCurrency"
+            android:layout_below="@id/currencies_text"
             android:background="@android:color/black"
             android:id="@+id/divider_two"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/currentRate"
-            android:text="Current Exchange Rate:"
+            android:text="@string/current_exchange_rate"
             android:layout_below="@id/divider_two"
             android:textColor="@android:color/black"
             android:textSize="18sp"
@@ -125,7 +130,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="Sync Rates"
+                android:contentDescription="@string/sync_rates"
                 android:src="@drawable/sync_currency_rate"
                 android:id="@+id/sync_rates"
                 android:layout_marginTop="10dp"
@@ -143,7 +148,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="Delete Card"
+                android:contentDescription="@string/delete_card"
                 android:src="@drawable/delete_card"
                 android:id="@+id/delete_card"
                 android:layout_marginTop="10dp"

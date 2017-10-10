@@ -27,4 +27,32 @@
         <item>UYU</item>
         <item>ZWD</item>
     </string-array>
+
+    <string-array name="cryptoCurrenciesText">
+        <item>Bitcoin</item>
+        <item>Ether</item>
+    </string-array>
+
+    <string-array name="otherCurrenciesText">
+        <item>Naira</item>
+        <item>Dollar</item>
+        <item>Euro</item>
+        <item>British Pound</item>
+        <item>Chinese Yuan</item>
+        <item>Indian Rupee</item>
+        <item>Israel Shekel</item>
+        <item>Laos Kip</item>
+        <item>Netherlands Antilles Guilder</item>
+        <item>Qatar Riyal</item>
+        <item>Russian Ruble</item>
+        <item>Brazil Real</item>
+        <item>Switzerland Franc</item>
+        <item>Seychelles Rupee</item>
+        <item>South African Rand</item>
+        <item>Sweden Krona</item>
+        <item>Taiwan New Dollar</item>
+        <item>Ukraine Hryvnia</item>
+        <item>Uruguay Peso</item>
+        <item>Zimbabwe Dolla</item>
+    </string-array>
 </resources>
