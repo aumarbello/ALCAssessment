@@ -67,23 +67,68 @@ public class CardsPresenter {
         else
             crypt = "ETH";
 
-        service.getRateInUSD(crypt, "USD")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        //success
-                        rateResponseUSD -> {
-                            card.setCurrentRate(rateResponseUSD.USD().floatValue());
-                            Log.d(TAG, "Received response - " + rateResponseUSD.USD());
-                            String result = getResult(rateResponseUSD.USD());
-                            Log.d(TAG, "Card value - " + card.getCurrentRate());
-                            activity.showExchangeRateForCard(card);
-                        },
-                        //error
-                        throwable -> {
-                            Log.d(TAG, "Error", throwable);
-                            activity.showExchangeRateForCardError(card);
-                        });
+        switch (card.getTo()) {
+            case "Dollar":
+                service.getRateInUSD(crypt, "USD")
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                //success
+                                rateResponseUSD -> {
+                                    card.setCurrentRate(rateResponseUSD.USD().floatValue());
+                                    Log.d(TAG, "Received response - " + rateResponseUSD.USD());
+                                    String result = getResult(rateResponseUSD.USD());
+                                    Log.d(TAG, "Card value - " + card.getCurrentRate());
+                                    activity.showExchangeRateForCard(card);
+                                },
+                                //error
+                                throwable -> {
+                                    Log.d(TAG, "Error", throwable);
+                                    activity.showExchangeRateForCardError(card);
+                                });
+                break;
+            case "Euro":
+                service.getRateInEUR(crypt, "EUR")
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                //success
+                                rateResponseUSD -> {
+                                    card.setCurrentRate(rateResponseUSD.EUR().floatValue());
+                                    Log.d(TAG, "Received response - " + rateResponseUSD.EUR());
+                                    String result = getResult(rateResponseUSD.EUR());
+                                    Log.d(TAG, "Card value - " + card.getCurrentRate());
+                                    activity.showExchangeRateForCard(card);
+                                },
+                                //error
+                                throwable -> {
+                                    Log.d(TAG, "Error", throwable);
+                                    activity.showExchangeRateForCardError(card);
+                                });
+                break;
+            default:
+                service.getRateInUSD(crypt, "USD")
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                //success
+                                rateResponseUSD -> {
+                                    //todo get comparative exchange rate and use it to convert to the current currency
+                                    card.setCurrentRate(rateResponseUSD.USD().floatValue());
+                                    Log.d(TAG, "Received response - " + rateResponseUSD.USD());
+                                    String result = getResult(rateResponseUSD.USD());
+                                    Log.d(TAG, "Card value - " + card.getCurrentRate());
+                                    activity.showExchangeRateForCard(card);
+                                },
+                                //error
+                                throwable -> {
+                                    Log.d(TAG, "Error", throwable);
+                                    activity.showExchangeRateForCardError(card);
+                                });
+                break;
+        }
+
+
     }
 
     private String getResult(double rate){
