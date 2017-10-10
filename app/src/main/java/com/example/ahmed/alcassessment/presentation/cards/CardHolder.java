@@ -66,7 +66,7 @@ class CardHolder extends RecyclerView.ViewHolder {
         }else {
             String rate = "1 " +
                     getCryptoSymbol(card.getFrom()) +
-                    ": " +
+                    " : " +
                     card.getCurrentRate() + " " +
                     getSymbol(card.getTo());
 
@@ -82,8 +82,7 @@ class CardHolder extends RecyclerView.ViewHolder {
         });
 
         deleteCard.setOnClickListener(view -> {
-            activity.deleteCard(card);
-            activity.updateAfterDelete();
+            activity.deleteCard(card, position);
         });
 
         itemView.setOnClickListener(view -> {

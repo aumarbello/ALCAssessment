@@ -55,6 +55,10 @@ public class CardsPresenter {
         //call service and determine latest exchange rate
     }
 
+    public void deleteCard(Card card){
+        cardDAO.deleteCard(card);
+    }
+
     public void updateAllCardsDetails(List<Card> cardList){
         //do the above for all cards
     }
@@ -133,5 +137,9 @@ public class CardsPresenter {
 
     private String getResult(double rate){
         return rate + " test";
+    }
+
+    public void close() {
+        cardDAO.close();
     }
 }

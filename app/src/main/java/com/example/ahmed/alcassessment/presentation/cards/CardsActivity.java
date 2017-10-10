@@ -71,27 +71,21 @@ public class CardsActivity extends BaseActivity implements AddCardDialog.CallBac
                 Toast.LENGTH_SHORT).show();
     }
 
-    public void deleteCard(Card card) {
+    public void deleteCard(Card card, int position) {
         Toast.makeText(this, "Deleting",
                 Toast.LENGTH_SHORT).show();
-//        cards.remove(card);
-    }
 
-    public void updateAfterDelete() {
-        Snackbar.make(cardList, "Updating", Snackbar.LENGTH_SHORT);
+        adapter.deleteCard(card);
+        presenter.deleteCard(card);
+        adapter.notifyItemRemoved(position);
     }
 
     public void openConversionDialog(Card card) {
         Snackbar.make(cardList, "Opening", Snackbar.LENGTH_SHORT);
     }
 
-    private
-
-    void
-
-    updateAfterAdding(Card card){
+    private void updateAfterAdding(Card card){
         adapter.addCard(card);
-//        cards.add(card);
         int position = adapter.getItemCount();
         adapter.notifyItemInserted(position);
         Log.d("Activity", "Call to add card to adapter");
@@ -103,6 +97,7 @@ public class CardsActivity extends BaseActivity implements AddCardDialog.CallBac
         super.onDestroy();
 
         unbinder.unbind();
+        presenter.close();
     }
 
     @Override
