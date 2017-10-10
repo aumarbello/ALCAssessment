@@ -5,7 +5,7 @@ package com.example.ahmed.alcassessment.utils;
  */
 
 public final class AppConstants {
-    public static final String BASE_URL = "https://min-api.cryptocompare.com";
+    public static final String BASE_URL = "https://min-api.cryptocompare.com/data/";
 
     public static final int version = 1;
 }

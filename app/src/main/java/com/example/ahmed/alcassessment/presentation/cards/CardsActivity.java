@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.ahmed.alcassessment.R;
@@ -66,11 +67,13 @@ public class CardsActivity extends BaseActivity implements AddCardDialog.CallBac
     }
 
     public void syncCard(Card card) {
-        Snackbar.make(refreshLayout, "Syncing", Snackbar.LENGTH_SHORT);
+        Toast.makeText(this, "Syncing",
+                Toast.LENGTH_SHORT).show();
     }
 
     public void deleteCard(Card card) {
-        Snackbar.make(cardList, "Deleting", Snackbar.LENGTH_SHORT);
+        Toast.makeText(this, "Deleting",
+                Toast.LENGTH_SHORT).show();
 //        cards.remove(card);
     }
 
@@ -82,6 +85,19 @@ public class CardsActivity extends BaseActivity implements AddCardDialog.CallBac
         Snackbar.make(cardList, "Opening", Snackbar.LENGTH_SHORT);
     }
 
+    private
+
+    void
+
+    updateAfterAdding(Card card){
+        adapter.addCard(card);
+//        cards.add(card);
+        int position = adapter.getItemCount();
+        adapter.notifyItemInserted(position);
+        Log.d("Activity", "Call to add card to adapter");
+
+    }
+
     @Override
     public void onDestroy(){
         super.onDestroy();
@@ -91,7 +107,27 @@ public class CardsActivity extends BaseActivity implements AddCardDialog.CallBac
 
     @Override
     public void addCard(String from, String to) {
+        Card card = new Card();
+        card.setFrom(from);
+        card.setTo(to);
+        updateAfterAdding(card);
+
+        presenter.getRateForCard(card);
+
         Toast.makeText(this, "Received currencies - " + from + " and - " + to,
                 Toast.LENGTH_SHORT).show();
+    }
+
+   public void showExchangeRateForCard(Card card){
+       presenter.addCard(card);
+       int pos = adapter.getItemCount() - 1;
+       adapter.notifyItemChanged(pos);
+       Log.d("Activity", "Changing item at - " + pos);
+    }
+
+    public void showExchangeRateForCardError(Card card) {
+        card.setCurrentRate(123);
+        int pos = adapter.getItemCount() - 1;
+        adapter.notifyItemChanged(pos);
     }
 }

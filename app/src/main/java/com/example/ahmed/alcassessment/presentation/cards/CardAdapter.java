@@ -1,6 +1,7 @@
 package com.example.ahmed.alcassessment.presentation.cards;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +33,7 @@ class CardAdapter extends RecyclerView.Adapter<CardHolder> {
     @Override
     public void onBindViewHolder(CardHolder holder, int position) {
         Card card = cardList.get(position);
-        holder.bindCard(card);
+        holder.bindCard(card, position);
     }
 
     @Override
@@ -41,6 +42,7 @@ class CardAdapter extends RecyclerView.Adapter<CardHolder> {
     }
 
     void addCard(Card card){
+        Log.d("Adapter", "Size of list currently - " + cardList.size());
         cardList.add(card);
     }
 

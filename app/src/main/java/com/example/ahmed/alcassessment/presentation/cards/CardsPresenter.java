@@ -1,5 +1,7 @@
 package com.example.ahmed.alcassessment.presentation.cards;
 
+import android.util.Log;
+
 import com.example.ahmed.alcassessment.data.local.CardDAO;
 import com.example.ahmed.alcassessment.data.model.Card;
 import com.example.ahmed.alcassessment.data.remote.ExchangeService;
@@ -9,6 +11,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
 /**
  * Created by ahmed on 10/6/17.
  */
@@ -17,6 +22,7 @@ public class CardsPresenter {
     private CardDAO cardDAO;
     private CardsActivity activity;
     private ExchangeService service;
+    private static final String TAG = "CardPresenter";
 
     @Inject
     public CardsPresenter(CardDAO cardDAO, ExchangeService service){
@@ -29,8 +35,10 @@ public class CardsPresenter {
     }
 
     public List<Card> getAllCards(){
+        List<Card> cardList = cardDAO.getAllCards();
+        Log.d(TAG, "Size of list from db - " + cardList.size());
         //load cards in back round and update ui
-        return new ArrayList<>();
+        return cardList;
     }
 
 
@@ -49,5 +57,36 @@ public class CardsPresenter {
 
     public void updateAllCardsDetails(List<Card> cardList){
         //do the above for all cards
+    }
+
+    void getRateForCard(Card card) {
+        String crypt;
+
+        if (card.getFrom().equals("Bitcoin"))
+            crypt = "BTC";
+        else
+            crypt = "ETH";
+
+        service.getRateInUSD(crypt, "USD")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        //success
+                        rateResponseUSD -> {
+                            card.setCurrentRate(rateResponseUSD.USD().floatValue());
+                            Log.d(TAG, "Received response - " + rateResponseUSD.USD());
+                            String result = getResult(rateResponseUSD.USD());
+                            Log.d(TAG, "Card value - " + card.getCurrentRate());
+                            activity.showExchangeRateForCard(card);
+                        },
+                        //error
+                        throwable -> {
+                            Log.d(TAG, "Error", throwable);
+                            activity.showExchangeRateForCardError(card);
+                        });
+    }
+
+    private String getResult(double rate){
+        return rate + " test";
     }
 }

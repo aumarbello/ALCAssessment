@@ -1,10 +1,12 @@
 package com.example.ahmed.alcassessment.presentation.cards;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ahmed.alcassessment.R;
 import com.example.ahmed.alcassessment.data.model.Card;
@@ -25,7 +27,7 @@ class CardHolder extends RecyclerView.ViewHolder {
     private CardsActivity activity;
     private Card card;
 
-    public CardHolder(View itemView, CardsActivity activity) {
+    CardHolder(View itemView, CardsActivity activity) {
         super(itemView);
         this.activity = activity;
         cryptCurrencySymbol = itemView.findViewById(R.id.cryptoCurrency);
@@ -42,18 +44,27 @@ class CardHolder extends RecyclerView.ViewHolder {
         cardIsSyncing = itemView.findViewById(R.id.rate_in_sync);
     }
 
-    void bindCard(Card card){
+    void bindCard(Card card, int position){
         this.card = card;
-        cryptCurrencySymbol.setText(getSymbol(card.getFrom()));
+        cryptCurrencySymbol.setText(getCryptoSymbol(card.getFrom()));
         otherCurrencySymbol.setText(getSymbol(card.getTo()));
 
         cryptCurrencyText.setText(card.getFrom());
         otherCurrencyText.setText(card.getTo());
-
-        currentRate.setText(card.getCurrentRate() + "");
+        Log.d("Holder", "Current rate - " + card.getCurrentRate());
+        if (card.getCurrentRate() == 0.0){
+            cardIsSyncing.setVisibility(View.VISIBLE);
+            currentRate.setVisibility(View.INVISIBLE);
+        }else if (card.getCurrentRate() == 123){
+            currentRate.setTextSize(10);
+            currentRate.setText("Failed to retrieve rate");
+        }else {
+            currentRate.setText(card.getCurrentRate() + "");
+        }
+        setListeners(position);
     }
 
-    void setListeners(){
+   private void setListeners(int position){
         syncCard.setOnClickListener(view -> {
             activity.syncCard(card);
             cardIsSyncing.setVisibility(View.VISIBLE);
@@ -64,10 +75,65 @@ class CardHolder extends RecyclerView.ViewHolder {
             activity.updateAfterDelete();
         });
 
-        itemView.setOnClickListener(view -> activity.openConversionDialog(card));
+        itemView.setOnClickListener(view -> {
+            activity.openConversionDialog(card);
+            Toast.makeText(activity, "Position of clicked item - " + position,
+                    Toast.LENGTH_SHORT).show();
+        });
+    }
+
+    private String getCryptoSymbol(String currencyText){
+        switch (currencyText){
+            case "Ether":
+                return "ETH";
+            default:
+                return "BTC";
+        }
     }
 
     private String getSymbol(String currencyText){
-        return "@";
+        switch (currencyText){
+            case "Naira":
+                return "NGN";
+            case "Dollar":
+                return "USD";
+            case "Euro":
+                return "EUR";
+            case "British Pound":
+                return "GBP";
+            case "Chinese Yuan":
+                return "CYN";
+            case "Indian Rupees":
+                return "INR";
+            case "Israel Shekel":
+                return "ILS";
+            case "Laos Kip":
+                return "LAK";
+            case "Netherlands Antilles Guilder":
+                return "ANG";
+            case "Qatari Riyal":
+                return "QAR";
+            case "Russian Ruble":
+                return "RUB";
+            case "Brazilian Real":
+                return "BRL";
+            case "Switzerland Franc":
+                return "CHF";
+            case "Seychelles Rupee":
+                return "SCR";
+            case "South African Rand":
+                return "ZAR";
+            case "Sweden Krona":
+                return "SEK";
+            case "Taiwan New Dollar":
+                return "TWD";
+            case "Ukraine Hryvnia":
+                return "UAH";
+            case "Uruguay Peso":
+                return "UYU";
+            case "Zimbabwe Dollar":
+                return "ZWD";
+        }
+        return "";
     }
 }
