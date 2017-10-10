@@ -25,7 +25,7 @@
         <item>TWD</item>
         <item>UAH</item>
         <item>UYU</item>
-        <item>ZWD</item>
+        <item>TRY</item>
     </string-array>
 
     <string-array name="cryptoCurrenciesText">
@@ -53,6 +53,6 @@
         <item>Taiwan New Dollar</item>
         <item>Ukraine Hryvnia</item>
         <item>Uruguay Peso</item>
-        <item>Zimbabwe Dolla</item>
+        <item>Turkish Lira</item>
     </string-array>
 </resources>

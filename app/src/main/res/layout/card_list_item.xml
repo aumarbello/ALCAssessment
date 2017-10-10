@@ -12,7 +12,7 @@
     android:layout_marginStart="10dp"
     android:layout_marginEnd="10dp"
     android:layout_marginRight="10dp"
-    android:layout_marginTop="5dp">
+    android:layout_marginTop="10dp">
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -69,7 +69,7 @@
                 android:id="@+id/textCryptCurrency"
                 android:text="@string/bitcoin"
                 android:textColor="@android:color/black"
-                android:textSize="18sp"
+                android:textSize="15sp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="10dp"
@@ -80,7 +80,7 @@
                 android:id="@+id/textOtherCurrency"
                 android:text="@string/naira"
                 android:textColor="@android:color/black"
-                android:textSize="18sp"
+                android:textSize="15sp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="10dp"
@@ -101,11 +101,12 @@
             android:text="@string/current_exchange_rate"
             android:layout_below="@id/divider_two"
             android:textColor="@android:color/black"
-            android:textSize="18sp"
+            android:textSize="12sp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
+            android:layout_centerInParent="true"
             />
         <ProgressBar
             android:layout_width="wrap_content"

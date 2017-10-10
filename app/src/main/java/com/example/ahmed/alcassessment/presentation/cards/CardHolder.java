@@ -20,10 +20,10 @@ class CardHolder extends RecyclerView.ViewHolder {
     private TextView otherCurrencySymbol;
     private TextView cryptCurrencyText;
     private TextView otherCurrencyText;
-    private TextView currentRate;
+    TextView currentRate;
     private ImageView syncCard;
     private ImageView deleteCard;
-    private ProgressBar cardIsSyncing;
+    ProgressBar cardIsSyncing;
     private CardsActivity activity;
     private Card card;
     private String[] crytoSymbols;
@@ -77,7 +77,7 @@ class CardHolder extends RecyclerView.ViewHolder {
 
    private void setListeners(int position){
         syncCard.setOnClickListener(view -> {
-            activity.syncCard(card);
+            activity.syncCard(card, position);
             cardIsSyncing.setVisibility(View.VISIBLE);
         });
 
@@ -141,7 +141,7 @@ class CardHolder extends RecyclerView.ViewHolder {
                 return otherSymbols[17];
             case "Uruguay Peso":
                 return otherSymbols[18];
-            case "Zimbabwe Dollar":
+            case "Turkish Lira":
                 return otherSymbols[19];
         }
         return "";

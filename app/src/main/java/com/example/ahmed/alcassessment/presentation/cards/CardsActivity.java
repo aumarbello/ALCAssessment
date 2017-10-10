@@ -42,6 +42,9 @@ public class CardsActivity extends BaseActivity implements AddCardDialog.CallBac
     private Unbinder unbinder;
     private List<Card> cards;
     private AddCardDialog dialog;
+    private int syncPosition;
+    private boolean isSyncing;
+    private double previousRate;
 
     @Override
     protected void onCreate(Bundle savedInstance){
@@ -66,7 +69,11 @@ public class CardsActivity extends BaseActivity implements AddCardDialog.CallBac
         });
     }
 
-    public void syncCard(Card card) {
+    public void syncCard(Card card, int position) {
+        syncPosition = position;
+        isSyncing = true;
+        previousRate = card.getCurrentRate();
+        presenter.getRateForCard(card);
         Toast.makeText(this, "Syncing",
                 Toast.LENGTH_SHORT).show();
     }
@@ -114,15 +121,35 @@ public class CardsActivity extends BaseActivity implements AddCardDialog.CallBac
     }
 
    public void showExchangeRateForCard(Card card){
-       presenter.addCard(card);
-       int pos = adapter.getItemCount() - 1;
-       adapter.notifyItemChanged(pos);
-       Log.d("Activity", "Changing item at - " + pos);
+       if (isSyncing){
+           presenter.updateCard(card);
+           adapter.noChangeInExchangeRate(card,
+                   previousRate == (double) card.getCurrentRate());
+//           if(previousRate == (double) card.getCurrentRate()){
+//
+//               Log.d("Activity", "Same rates not notifying adapter");
+//           }else {
+               adapter.notifyItemChanged(syncPosition);
+//               Log.d("Activity", "Different rates notifying adapter");
+//           }
+           Log.d("Activity", "Changing item at - " + syncPosition);
+           Log.d("Activity", "Changing item at - " + syncPosition + " while syncing");
+       }else {
+           presenter.addCard(card);
+           int pos = adapter.getItemCount() - 1;
+           adapter.notifyItemChanged(pos);
+           Log.d("Activity", "Changing item at - " + pos);
+       }
     }
 
     public void showExchangeRateForCardError(Card card) {
-        card.setCurrentRate(123);
-        int pos = adapter.getItemCount() - 1;
-        adapter.notifyItemChanged(pos);
+        if (isSyncing){
+            card.setCurrentRate(123);
+            adapter.notifyItemChanged(syncPosition);
+        }else {
+            card.setCurrentRate(123);
+            int pos = adapter.getItemCount() - 1;
+            adapter.notifyItemChanged(pos);
+        }
     }
 }

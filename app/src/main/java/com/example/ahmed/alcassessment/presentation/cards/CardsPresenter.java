@@ -31,6 +31,7 @@ public class CardsPresenter {
     }
 
     void AttachView(CardsActivity activity){
+        cardDAO.open();
         this.activity = activity;
     }
 
