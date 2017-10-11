@@ -16,78 +16,79 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-        <LinearLayout
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:id="@+id/symbols"
+            android:id="@+id/cryptoCurrency"
+            android:text="@string/btc"
+            android:textSize="18sp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/cryptoCurrency"
-                android:text="@string/btc"
-                android:textSize="18sp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"/>
+            android:layout_alignParentTop="true"/>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/dash"
-                android:src="@drawable/dash"
-                android:paddingTop="3dp"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/otherCurrency"
-                android:text="@string/ngn"
-                android:textSize="18sp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"/>
-        </LinearLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/dash"
+            android:src="@drawable/dash"
+            android:paddingTop="8dp"
+            android:layout_gravity="center"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/otherCurrency"
+            android:text="@string/ngn"
+            android:textSize="18sp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentTop="true"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:orientation="horizontal"
-            android:layout_below="@id/symbols"
+            android:layout_below="@id/otherCurrency"
             android:background="@android:color/black"
             android:id="@+id/divider_one"/>
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:id="@+id/textCryptCurrency"
+            android:text="@string/bitcoin"
+            android:textSize="15sp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="10dp"
             android:layout_below="@id/divider_one"
-            android:id="@+id/currencies_text">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textCryptCurrency"
-                android:text="@string/bitcoin"
-                android:textSize="15sp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textOtherCurrency"
-                android:text="@string/naira"
-                android:textSize="15sp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                />
-        </LinearLayout>
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textOtherCurrency"
+            android:text="@string/naira"
+            android:textSize="15sp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/divider_one"
+            />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:orientation="horizontal"
-            android:layout_below="@id/currencies_text"
+            android:layout_below="@id/textOtherCurrency"
             android:background="@android:color/black"
             android:id="@+id/divider_two"/>
         <TextView

@@ -11,6 +11,8 @@ import android.widget.Toast;
 import com.example.ahmed.alcassessment.R;
 import com.example.ahmed.alcassessment.data.model.Card;
 
+import java.util.Locale;
+
 /**
  * Created by ahmed on 10/8/17.
  */
@@ -64,11 +66,9 @@ class CardHolder extends RecyclerView.ViewHolder {
             currentRate.setTextSize(10);
             currentRate.setText(R.string.faied_to_retrieve);
         }else {
-            String rate = "1 " +
-                    getCryptoSymbol(card.getFrom()) +
-                    " : " +
-                    card.getCurrentRate() + " " +
-                    getSymbol(card.getTo());
+            String rate = String.format(Locale.ENGLISH, "1 %s : %.2f %s",
+                    getCryptoSymbol(card.getFrom()), card.getCurrentRate(),
+                    getSymbol(card.getTo()));
 
             currentRate.setText(rate);
         }
