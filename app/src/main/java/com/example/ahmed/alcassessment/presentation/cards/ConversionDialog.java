@@ -140,9 +140,14 @@ public class ConversionDialog extends DialogFragment {
     private void setUpViews(){
         convertFrom.setText(getCryptoSymbol(from));
         convertTo.setText(getSymbol(to));
+
         String theRate = String.format(Locale.ENGLISH, "1 %s : %.2f %s",
                 getCryptoSymbol(from), cardRate, getSymbol(to));
         conversion_rate.setText(theRate);
+
+
+        String theExchange = String.format(Locale.ENGLISH, "%s  %.2f", getSymbol(to), 0.0);
+        exchangedView.setText(theExchange);
     }
 
     @Override

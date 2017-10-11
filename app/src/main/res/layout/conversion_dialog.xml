@@ -16,9 +16,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:text="@string/btc"
+            android:text="@string/ngn"
             android:gravity="start"
-            android:id="@+id/convertFrom"/>
+            android:id="@+id/convertTo"/>
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -31,11 +31,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:text="@string/ngn"
             android:gravity="end"
+            android:text="@string/btc"
+            android:id="@+id/convertFrom"
             android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:id="@+id/convertTo"/>
+            android:layout_marginStart="10dp"/>
     </LinearLayout>
 
     <TextView
