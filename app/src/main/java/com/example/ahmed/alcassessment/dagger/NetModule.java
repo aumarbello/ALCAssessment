@@ -9,6 +9,7 @@ import com.google.gson.GsonBuilder;
 
 import java.util.concurrent.TimeUnit;
 
+import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -52,8 +53,7 @@ public class NetModule {
     }
 
     @Provides
-    @Singleton
-    @Crypto
+    @Named("Crypto")
     Retrofit providesRetrofit(OkHttpClient client, GsonConverterFactory factory){
         return new Retrofit.Builder()
                 .client(client)
@@ -64,8 +64,7 @@ public class NetModule {
     }
 
     @Provides
-    @Singleton
-    @Others
+    @Named("Other")
     Retrofit providesOtherRetrofit(OkHttpClient client, GsonConverterFactory factory){
         return new Retrofit.Builder()
                 .client(client)
@@ -78,13 +77,13 @@ public class NetModule {
 
     @Provides
     @Singleton
-    ExchangeService providesExchangeService(@Crypto Retrofit retrofit){
+    ExchangeService providesExchangeService(@Named("Crypto") Retrofit retrofit){
         return retrofit.create(ExchangeService.class);
     }
 
     @Provides
     @Singleton
-    CurrencyService currencyService(@Others Retrofit retrofit){
+    CurrencyService currencyService(@Named("Other") Retrofit retrofit){
         return retrofit.create(CurrencyService.class);
     }
 }

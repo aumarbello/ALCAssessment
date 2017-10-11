@@ -35,7 +35,7 @@ public class ConversionDialog extends DialogFragment {
 
     public static ConversionDialog getInstance(Card card){
         Bundle args = new Bundle();
-        args.putFloat(DOUBLE_TAG, card.getCurrentRate());
+        args.putDouble(DOUBLE_TAG, card.getCurrentRate());
         args.putString(FROM_TAG, card.getFrom());
         args.putString(TO_TAG, card.getTo());
 

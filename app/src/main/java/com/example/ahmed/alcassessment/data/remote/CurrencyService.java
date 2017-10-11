@@ -12,7 +12,7 @@ import retrofit2.http.Query;
 
 public interface CurrencyService {
     @GET("latest.json")
-    Single<Response> getExchangeRate(@Query("app_id") String appId,
+    Single<ResponseBody> getExchangeRate(@Query("app_id") String appId,
                                      @Query("base") String baseCurrency,
                                      @Query("symbols")String targetCurrency);
 }

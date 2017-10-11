@@ -8,6 +8,8 @@ import com.example.ahmed.alcassessment.data.remote.CurrencyService;
 import com.example.ahmed.alcassessment.data.remote.ExchangeService;
 import com.example.ahmed.alcassessment.utils.AppConstants;
 
+import org.json.JSONObject;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -125,16 +127,24 @@ public class CardsPresenter {
 //                                    Log.d(TAG, "Received response - " + rateResponseUSD.USD());
 //                                    Log.d(TAG, "Card value - " + card.getCurrentRate());
 //                                    activity.showExchangeRateForCard(card);
-
+                                    String symbol = getCurrencySymbol(card.getTo());
                                     currencyService.getExchangeRate(
                                             AppConstants.appId, "USD",
-                                            getCurrencySymbol(card.getTo()))
+                                            getCurrencySymbol(symbol))
                                             .subscribeOn(Schedulers.io())
                                             .observeOn(AndroidSchedulers.mainThread())
                                             .subscribe(responseBody -> {
+                                                String jsonMap = responseBody.string();
+                                                Log.d(TAG, "Different currency json value - " + jsonMap);
+                                                JSONObject object = new JSONObject(jsonMap);
+                                                JSONObject innerObject = object.getJSONObject("rates");
+                                                double exchangeRate = innerObject.getDouble(symbol);
+                                                Log.d(TAG, "Exchange rate from inner json - " + exchangeRate);
+                                                card.setCurrentRate(firstValue * exchangeRate);
 
                                             }, throwable -> {
-
+                                                Log.d(TAG, "Error", throwable);
+                                                activity.showExchangeRateForCardError(card);
                                             });
                                 },
                                 //error
@@ -149,6 +159,7 @@ public class CardsPresenter {
     }
 
     private String getCurrencySymbol(String to){
+
         return "";
     }
 
