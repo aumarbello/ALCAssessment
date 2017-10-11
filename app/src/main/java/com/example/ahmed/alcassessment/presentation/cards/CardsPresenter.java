@@ -2,6 +2,7 @@ package com.example.ahmed.alcassessment.presentation.cards;
 
 import android.util.Log;
 
+import com.example.ahmed.alcassessment.R;
 import com.example.ahmed.alcassessment.data.local.CardDAO;
 import com.example.ahmed.alcassessment.data.model.Card;
 import com.example.ahmed.alcassessment.data.remote.CurrencyService;
@@ -27,6 +28,7 @@ public class CardsPresenter {
     private ExchangeService service;
     private CurrencyService currencyService;
     private static final String TAG = "CardPresenter";
+    private String[] otherSymbols;
 
     @Inject
     public CardsPresenter(CardDAO cardDAO, ExchangeService service,
@@ -39,6 +41,7 @@ public class CardsPresenter {
     void AttachView(CardsActivity activity){
         cardDAO.open();
         this.activity = activity;
+        otherSymbols = activity.getResources().getStringArray(R.array.otherCurrencies);
     }
 
     public List<Card> getAllCards(){
@@ -127,10 +130,11 @@ public class CardsPresenter {
 //                                    Log.d(TAG, "Received response - " + rateResponseUSD.USD());
 //                                    Log.d(TAG, "Card value - " + card.getCurrentRate());
 //                                    activity.showExchangeRateForCard(card);
+                                    Log.d(TAG, "Original Currency - " + card.getTo());
                                     String symbol = getCurrencySymbol(card.getTo());
+                                    Log.d(TAG, "Currency Symbol - " + symbol);
                                     currencyService.getExchangeRate(
-                                            AppConstants.appId, "USD",
-                                            getCurrencySymbol(symbol))
+                                            AppConstants.appId, "USD", symbol)
                                             .subscribeOn(Schedulers.io())
                                             .observeOn(AndroidSchedulers.mainThread())
                                             .subscribe(responseBody -> {
@@ -141,6 +145,7 @@ public class CardsPresenter {
                                                 double exchangeRate = innerObject.getDouble(symbol);
                                                 Log.d(TAG, "Exchange rate from inner json - " + exchangeRate);
                                                 card.setCurrentRate(firstValue * exchangeRate);
+                                                activity.showExchangeRateForCard(card);
 
                                             }, throwable -> {
                                                 Log.d(TAG, "Error", throwable);
@@ -159,8 +164,50 @@ public class CardsPresenter {
     }
 
     private String getCurrencySymbol(String to){
-
-        return "";
+        switch (to){
+            case "Naira":
+                return otherSymbols[0];
+            case "Dollar":
+                return otherSymbols[1];
+            case "Euro":
+                return otherSymbols[2];
+            case "British Pound":
+                return otherSymbols[3];
+            case "Chinese Yuan":
+                return otherSymbols[4];
+            case "Indian Rupees":
+                return otherSymbols[5];
+            case "Israel Shekel":
+                return otherSymbols[6];
+            case "Laos Kip":
+                return otherSymbols[7];
+            case "Netherlands Antilles Guilder":
+                return otherSymbols[8];
+            case "Qatari Riyal":
+                return otherSymbols[9];
+            case "Russian Ruble":
+                return otherSymbols[10];
+            case "Brazilian Real":
+                return otherSymbols[11];
+            case "Switzerland Franc":
+                return otherSymbols[12];
+            case "Seychelles Rupee":
+                return otherSymbols[13];
+            case "South African Rand":
+                return otherSymbols[14];
+            case "Sweden Krona":
+                return otherSymbols[15];
+            case "Taiwan New Dollar":
+                return otherSymbols[16];
+            case "Ukraine Hryvnia":
+                return otherSymbols[17];
+            case "Uruguay Peso":
+                return otherSymbols[18];
+            case "Turkish Lira":
+                return otherSymbols[19];
+            default:
+                return "GBP";
+        }
     }
 
     public void close() {

@@ -77,9 +77,13 @@ public class ConversionDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle stateIn){
         View view = View.inflate(getActivity(), R.layout.conversion_dialog, null);
-        cardRate = (double) getArguments().getFloat(DOUBLE_TAG);
+        cardRate = getArguments().getDouble(DOUBLE_TAG);
+
         from = getArguments().getString(FROM_TAG);
         to = getArguments().getString(TO_TAG);
+
+        Log.d(TO_TAG, "Value to - " + to);
+        Log.d(FROM_TAG, "Value from - " + from);
 
         unbinder = ButterKnife.bind(this, view);
         setUpViews();
