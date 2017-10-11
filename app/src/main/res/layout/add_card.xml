@@ -9,7 +9,7 @@
         android:orientation="horizontal"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="20dp">
         <Spinner
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -18,7 +18,7 @@
         <ImageView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:contentDescription="DASH"
+            android:contentDescription="@string/dash"
             android:src="@drawable/dash"
             android:layout_weight="0.10"/>
         <Spinner
@@ -38,7 +38,6 @@
             android:id="@+id/cryptoDropDownText"
             android:textSize="18sp"
             android:textColor="@android:color/black"
-            android:text="BTC"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="10dp"
@@ -50,7 +49,6 @@
             android:id="@+id/otherDropDownText"
             android:textSize="18sp"
             android:textColor="@android:color/black"
-            android:text="NAIRA"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="10dp"

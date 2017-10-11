@@ -81,9 +81,8 @@ class CardHolder extends RecyclerView.ViewHolder {
             cardIsSyncing.setVisibility(View.VISIBLE);
         });
 
-        deleteCard.setOnClickListener(view -> {
-            activity.deleteCard(card, position);
-        });
+        deleteCard.setOnClickListener(view ->
+                activity.deleteCard(card, position));
 
         itemView.setOnClickListener(view -> {
             activity.openConversionDialog(card);

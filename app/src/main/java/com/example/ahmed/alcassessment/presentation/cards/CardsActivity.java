@@ -2,7 +2,6 @@ package com.example.ahmed.alcassessment.presentation.cards;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -40,7 +39,6 @@ public class CardsActivity extends BaseActivity implements AddCardDialog.CallBac
 
     private CardAdapter adapter;
     private Unbinder unbinder;
-    private List<Card> cards;
     private AddCardDialog dialog;
     private int syncPosition;
     private boolean isSyncing;
@@ -53,7 +51,7 @@ public class CardsActivity extends BaseActivity implements AddCardDialog.CallBac
         presenter.AttachView(this);
         setContentView(R.layout.card_list);
 
-        cards = presenter.getAllCards();
+        List<Card> cards = presenter.getAllCards();
 
         unbinder = ButterKnife.bind(this);
 
@@ -88,7 +86,8 @@ public class CardsActivity extends BaseActivity implements AddCardDialog.CallBac
     }
 
     public void openConversionDialog(Card card) {
-        Snackbar.make(cardList, "Opening", Snackbar.LENGTH_SHORT);
+        ConversionDialog dialog = ConversionDialog.getInstance(card);
+        dialog.show(getSupportFragmentManager(), "Conversion Dialog");
     }
 
     private void updateAfterAdding(Card card){
