@@ -4,9 +4,10 @@ import android.util.Log;
 
 import com.example.ahmed.alcassessment.data.local.CardDAO;
 import com.example.ahmed.alcassessment.data.model.Card;
+import com.example.ahmed.alcassessment.data.remote.CurrencyService;
 import com.example.ahmed.alcassessment.data.remote.ExchangeService;
+import com.example.ahmed.alcassessment.utils.AppConstants;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -22,12 +23,15 @@ public class CardsPresenter {
     private CardDAO cardDAO;
     private CardsActivity activity;
     private ExchangeService service;
+    private CurrencyService currencyService;
     private static final String TAG = "CardPresenter";
 
     @Inject
-    public CardsPresenter(CardDAO cardDAO, ExchangeService service){
+    public CardsPresenter(CardDAO cardDAO, ExchangeService service,
+                          CurrencyService currencyService){
         this.cardDAO = cardDAO;
         this.service = service;
+        this.currencyService = currencyService;
     }
 
     void AttachView(CardsActivity activity){
@@ -77,12 +81,10 @@ public class CardsPresenter {
                 service.getRateInUSD(crypt, "USD")
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                                //success
+                        .subscribe(//success
                                 rateResponseUSD -> {
-                                    card.setCurrentRate(rateResponseUSD.USD().floatValue());
+                                    card.setCurrentRate(rateResponseUSD.USD());
                                     Log.d(TAG, "Received response - " + rateResponseUSD.USD());
-                                    String result = getResult(rateResponseUSD.USD());
                                     Log.d(TAG, "Card value - " + card.getCurrentRate());
                                     activity.showExchangeRateForCard(card);
                                 },
@@ -99,9 +101,8 @@ public class CardsPresenter {
                         .subscribe(
                                 //success
                                 rateResponseUSD -> {
-                                    card.setCurrentRate(rateResponseUSD.EUR().floatValue());
+                                    card.setCurrentRate(rateResponseUSD.EUR());
                                     Log.d(TAG, "Received response - " + rateResponseUSD.EUR());
-                                    String result = getResult(rateResponseUSD.EUR());
                                     Log.d(TAG, "Card value - " + card.getCurrentRate());
                                     activity.showExchangeRateForCard(card);
                                 },
@@ -119,11 +120,22 @@ public class CardsPresenter {
                                 //success
                                 rateResponseUSD -> {
                                     //todo get comparative exchange rate and use it to convert to the current currency
-                                    card.setCurrentRate(rateResponseUSD.USD().floatValue());
-                                    Log.d(TAG, "Received response - " + rateResponseUSD.USD());
-                                    String result = getResult(rateResponseUSD.USD());
-                                    Log.d(TAG, "Card value - " + card.getCurrentRate());
-                                    activity.showExchangeRateForCard(card);
+                                    double firstValue = rateResponseUSD.USD();
+//                                    card.setCurrentRate(rateResponseUSD.USD());
+//                                    Log.d(TAG, "Received response - " + rateResponseUSD.USD());
+//                                    Log.d(TAG, "Card value - " + card.getCurrentRate());
+//                                    activity.showExchangeRateForCard(card);
+
+                                    currencyService.getExchangeRate(
+                                            AppConstants.appId, "USD",
+                                            getCurrencySymbol(card.getTo()))
+                                            .subscribeOn(Schedulers.io())
+                                            .observeOn(AndroidSchedulers.mainThread())
+                                            .subscribe(responseBody -> {
+
+                                            }, throwable -> {
+
+                                            });
                                 },
                                 //error
                                 throwable -> {
@@ -136,8 +148,8 @@ public class CardsPresenter {
 
     }
 
-    private String getResult(double rate){
-        return rate + " test";
+    private String getCurrencySymbol(String to){
+        return "";
     }
 
     public void close() {

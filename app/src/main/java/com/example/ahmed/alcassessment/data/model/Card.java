@@ -9,7 +9,7 @@ import java.util.UUID;
 public class Card {
     private String from;
     private String to;
-    private float currentRate;
+    private double currentRate;
     private UUID uuid;
 
     public Card(){
@@ -32,15 +32,15 @@ public class Card {
         this.to = to;
     }
 
-    public float getCurrentRate() {
+    public double getCurrentRate() {
         return currentRate;
     }
 
-    public void setCurrentRate(float currentRate) {
+    public void setCurrentRate(double currentRate) {
         this.currentRate = currentRate;
     }
 
-    public void setAll(String from, String to, float currentRate, String uuid){
+    public void setAll(String from, String to, double currentRate, String uuid){
         this.from = from;
         this.to = to;
         this.currentRate = currentRate;

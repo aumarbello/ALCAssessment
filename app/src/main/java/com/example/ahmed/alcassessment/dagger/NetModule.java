@@ -1,5 +1,6 @@
 package com.example.ahmed.alcassessment.dagger;
 
+import com.example.ahmed.alcassessment.data.remote.CurrencyService;
 import com.example.ahmed.alcassessment.data.remote.ExchangeService;
 import com.example.ahmed.alcassessment.utils.AppConstants;
 import com.example.ahmed.alcassessment.utils.GsonAdapterFactory;
@@ -52,6 +53,7 @@ public class NetModule {
 
     @Provides
     @Singleton
+    @Crypto
     Retrofit providesRetrofit(OkHttpClient client, GsonConverterFactory factory){
         return new Retrofit.Builder()
                 .client(client)
@@ -63,7 +65,26 @@ public class NetModule {
 
     @Provides
     @Singleton
-    ExchangeService providesExchangeService(Retrofit retrofit){
+    @Others
+    Retrofit providesOtherRetrofit(OkHttpClient client, GsonConverterFactory factory){
+        return new Retrofit.Builder()
+                .client(client)
+                .addConverterFactory(factory)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .baseUrl(AppConstants.CURRENCY_URL)
+                .build();
+    }
+
+
+    @Provides
+    @Singleton
+    ExchangeService providesExchangeService(@Crypto Retrofit retrofit){
         return retrofit.create(ExchangeService.class);
+    }
+
+    @Provides
+    @Singleton
+    CurrencyService currencyService(@Others Retrofit retrofit){
+        return retrofit.create(CurrencyService.class);
     }
 }
