@@ -23,8 +23,8 @@ class CardHolder extends RecyclerView.ViewHolder {
     private TextView cryptCurrencyText;
     private TextView otherCurrencyText;
     TextView currentRate;
-    private ImageView syncCard;
-    private ImageView deleteCard;
+//    private ImageView syncCard;
+//    private ImageView deleteCard;
     ProgressBar cardIsSyncing;
     private CardsActivity activity;
     private Card card;
@@ -42,8 +42,8 @@ class CardHolder extends RecyclerView.ViewHolder {
 
         currentRate = itemView.findViewById(R.id.currentRate);
 
-        syncCard = itemView.findViewById(R.id.sync_rates);
-        deleteCard = itemView.findViewById(R.id.delete_card);
+//        syncCard = itemView.findViewById(R.id.sync_rates);
+//        deleteCard = itemView.findViewById(R.id.delete_card);
 
         cardIsSyncing = itemView.findViewById(R.id.rate_in_sync);
 
@@ -76,13 +76,13 @@ class CardHolder extends RecyclerView.ViewHolder {
     }
 
    private void setListeners(int position){
-        syncCard.setOnClickListener(view -> {
-            activity.syncCard(card, position);
-            cardIsSyncing.setVisibility(View.VISIBLE);
-        });
-
-        deleteCard.setOnClickListener(view ->
-                activity.deleteCard(card, position));
+//        syncCard.setOnClickListener(view -> {
+//            activity.syncCard(card, position);
+//            cardIsSyncing.setVisibility(View.VISIBLE);
+//        });
+//
+//        deleteCard.setOnClickListener(view ->
+//                activity.deleteCard(card, position));
 
         itemView.setOnClickListener(view -> {
             activity.openConversionDialog(card);
