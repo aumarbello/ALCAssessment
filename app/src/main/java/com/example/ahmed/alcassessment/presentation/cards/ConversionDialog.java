@@ -12,6 +12,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.ahmed.alcassessment.R;
@@ -64,6 +66,12 @@ public class ConversionDialog extends DialogFragment {
 
     @BindView(R.id.exchanged_value)
     TextView exchangedView;
+
+    @BindView(R.id.currencySymbols)
+    LinearLayout currencySymbols;
+
+    @BindView(R.id.dash)
+    ImageView dash;
 
     private Unbinder unbinder;
     private static final String DOUBLE_TAG = "CONVERSION_DIALOG_DOUBLE";
@@ -123,11 +131,18 @@ public class ConversionDialog extends DialogFragment {
         builder.setTitle("Convert Currency Amount")
                 .setView(view)
                 .setNeutralButton("Clear", null)
+                .setNegativeButton("Swap", null)
                 .setPositiveButton("OK", null);
         AlertDialog dialog = builder.create();
         dialog.setOnShowListener(dialogInterface -> {
             Button button = ((AlertDialog) dialogInterface).getButton
                     (DialogInterface.BUTTON_NEUTRAL);
+
+            Button negativeButton = ((AlertDialog) dialogInterface).getButton
+                    (DialogInterface.BUTTON_NEGATIVE);
+            negativeButton.setOnClickListener(negativeView -> {
+                swapViews();
+            });
             button.setOnClickListener(buttonView -> {
                 conversion_box.setText("");
                 conversion_box.requestFocus();
@@ -210,5 +225,18 @@ public class ConversionDialog extends DialogFragment {
                 return otherSymbols[19];
         }
         return "";
+    }
+
+    private void swapViews(){
+        View firstView = currencySymbols.getChildAt(0);
+        View secondView = currencySymbols.getChildAt(1);
+        View thirdView = currencySymbols.getChildAt(2);
+        currencySymbols.removeAllViews();
+
+        //todo recalculate exchange rate, up date exchange rate view, and converted amount view
+
+        currencySymbols.addView(thirdView);
+        currencySymbols.addView(secondView);
+        currencySymbols.addView(firstView);
     }
 }
