@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.ahmed.alcassessment.R;
@@ -67,9 +66,6 @@ public class ConversionDialog extends DialogFragment {
     @BindView(R.id.exchanged_value)
     TextView exchangedView;
 
-    @BindView(R.id.currencySymbols)
-    LinearLayout currencySymbols;
-
     @BindView(R.id.dash)
     ImageView dash;
 
@@ -79,21 +75,29 @@ public class ConversionDialog extends DialogFragment {
     private static final String TO_TAG = "TO_CURRENCY";
     private String from;
     private String to;
-    private double cardRate;
+    private String originalRelativeExchangeString;
+    private String swapRelativeExchangeString;
+    private double originalExchangeRate;
+    private double swapExchangeRate;
+    private String originalExchangedAmount;
+    private String swapExchangedAmount;
+    private boolean isOriginal;
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle stateIn){
         View view = View.inflate(getActivity(), R.layout.conversion_dialog, null);
-        cardRate = getArguments().getDouble(DOUBLE_TAG);
+        unbinder = ButterKnife.bind(this, view);
+        isOriginal = true;
 
         from = getArguments().getString(FROM_TAG);
         to = getArguments().getString(TO_TAG);
 
+        setUpFields();
+
         Log.d(TO_TAG, "Value to - " + to);
         Log.d(FROM_TAG, "Value from - " + from);
 
-        unbinder = ButterKnife.bind(this, view);
         setUpViews();
 
         conversion_box.addTextChangedListener(new TextWatcher() {
@@ -113,11 +117,9 @@ public class ConversionDialog extends DialogFragment {
                         "0" : conversion_box.getText().toString();
                 Double dRate = Double.valueOf(amount);
 
-                double convertedCurrency = dRate * cardRate;
+                double convertedCurrency = dRate * exchangeRate();
 
-                String exchangedString = String.format(Locale.ENGLISH,
-                        "%s %.2f", getSymbol(to), convertedCurrency);
-                exchangedView.setText(exchangedString);
+                exchangedView.setText(exchangeString(convertedCurrency));
             }
 
             @Override
@@ -130,20 +132,22 @@ public class ConversionDialog extends DialogFragment {
 
         builder.setTitle("Convert Currency Amount")
                 .setView(view)
-                .setNeutralButton("Clear", null)
-                .setNegativeButton("Swap", null)
+                .setNegativeButton("Clear", null)
+                .setNeutralButton("Swap", null)
                 .setPositiveButton("OK", null);
         AlertDialog dialog = builder.create();
         dialog.setOnShowListener(dialogInterface -> {
-            Button button = ((AlertDialog) dialogInterface).getButton
+            Button neutralButton = ((AlertDialog) dialogInterface).getButton
                     (DialogInterface.BUTTON_NEUTRAL);
 
             Button negativeButton = ((AlertDialog) dialogInterface).getButton
                     (DialogInterface.BUTTON_NEGATIVE);
-            negativeButton.setOnClickListener(negativeView -> {
-                swapViews();
+            neutralButton.setOnClickListener(negativeView -> {
+                isOriginal = !isOriginal;
+                conversion_box.setText("");
+                setUpViews();
             });
-            button.setOnClickListener(buttonView -> {
+            negativeButton.setOnClickListener(buttonView -> {
                 conversion_box.setText("");
                 conversion_box.requestFocus();
                 Log.d("Clear", "Received call to clear");
@@ -152,17 +156,52 @@ public class ConversionDialog extends DialogFragment {
         return dialog;
     }
 
+    private void setUpFields() {
+        originalExchangeRate = getArguments().getDouble(DOUBLE_TAG);
+        swapExchangeRate = 1 / originalExchangeRate;
+
+        originalRelativeExchangeString = String.format(Locale.ENGLISH, "1 %s : %.2f %s",
+                getCryptoSymbol(from), originalExchangeRate, getSymbol(to));
+        swapRelativeExchangeString = String.format(Locale.ENGLISH, "1 %s : %f %s",
+                getSymbol(to), swapExchangeRate, getCryptoSymbol(from));
+
+        originalExchangedAmount = String.format(Locale.ENGLISH, "%s  %.2f", getSymbol(to), 0.0);
+        swapExchangedAmount = String.format(Locale.ENGLISH, "%s  %.2f", getCryptoSymbol(from), 0.0);
+    }
+
+    private double exchangeRate(){
+        if (isOriginal){
+            return originalExchangeRate;
+        }else
+            return swapExchangeRate;
+    }
+
+    private String exchangeString(double amount){
+        if (isOriginal){
+        return String.format(Locale.ENGLISH,
+                "%s %.2f", getSymbol(to), amount);
+        }else {
+            return String.format(Locale.ENGLISH,
+                    "%s %.2f", getCryptoSymbol(from), amount);
+        }
+    }
+
     private void setUpViews(){
-        convertFrom.setText(getCryptoSymbol(from));
-        convertTo.setText(getSymbol(to));
+        if (isOriginal){
+            convertFrom.setText(getCryptoSymbol(from));
+            convertTo.setText(getSymbol(to));
 
-        String theRate = String.format(Locale.ENGLISH, "1 %s : %.2f %s",
-                getCryptoSymbol(from), cardRate, getSymbol(to));
-        conversion_rate.setText(theRate);
+            conversion_rate.setText(originalRelativeExchangeString);
 
+            exchangedView.setText(originalExchangedAmount);
+        }else {
+            convertFrom.setText(getSymbol(to));
+            convertTo.setText(getCryptoSymbol(from));
 
-        String theExchange = String.format(Locale.ENGLISH, "%s  %.2f", getSymbol(to), 0.0);
-        exchangedView.setText(theExchange);
+            conversion_rate.setText(swapRelativeExchangeString);
+
+            exchangedView.setText(swapExchangedAmount);
+        }
     }
 
     @Override
@@ -227,16 +266,20 @@ public class ConversionDialog extends DialogFragment {
         return "";
     }
 
-    private void swapViews(){
-        View firstView = currencySymbols.getChildAt(0);
-        View secondView = currencySymbols.getChildAt(1);
-        View thirdView = currencySymbols.getChildAt(2);
-        currencySymbols.removeAllViews();
-
-        //todo recalculate exchange rate, up date exchange rate view, and converted amount view
-
-        currencySymbols.addView(thirdView);
-        currencySymbols.addView(secondView);
-        currencySymbols.addView(firstView);
-    }
+//    private void swapViews(){
+//        View firstView = currencySymbols.getChildAt(0);
+//        View secondView = currencySymbols.getChildAt(1);
+//        View thirdView = currencySymbols.getChildAt(2);
+//        currencySymbols.removeAllViews();
+//
+//        //todo recalculate exchange rate, up date exchange rate view, and converted amount view
+//
+//        currencySymbols.addView(thirdView);
+//        currencySymbols.addView(secondView);
+//        currencySymbols.addView(firstView);
+//
+//        if (isOriginal){
+//
+//        }
+//    }
 }
