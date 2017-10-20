@@ -12,11 +12,11 @@ import retrofit2.http.Query;
  */
 
 public interface ExchangeService {
-    @GET("/price")
+    @GET("price")
     Single<RateResponseUSD> getRateInUSD(@Query("fsym") String cryptoCurrency,
                                          @Query("tsyms") String exchangeCurrency);
 
-    @GET("/price")
+    @GET("price")
     Single<RateResponseEUR> getRateInEUR(@Query("fsym") String cryptoCurrency,
                                          @Query("tsyms") String exchangeCurrency);
 }
