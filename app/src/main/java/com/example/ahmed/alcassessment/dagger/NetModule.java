@@ -1,15 +1,23 @@
 package com.example.ahmed.alcassessment.dagger;
 
+import com.example.ahmed.alcassessment.data.remote.CurrencyService;
 import com.example.ahmed.alcassessment.data.remote.ExchangeService;
 import com.example.ahmed.alcassessment.utils.AppConstants;
+import com.example.ahmed.alcassessment.utils.GsonAdapterFactory;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
+import java.util.concurrent.TimeUnit;
+
+import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -20,7 +28,9 @@ public class NetModule {
     @Provides
     @Singleton
     Gson providesGson(){
-        return new Gson();
+        return new GsonBuilder()
+                .registerTypeAdapterFactory(GsonAdapterFactory.create())
+                .create();
     }
 
     @Provides
@@ -32,22 +42,48 @@ public class NetModule {
     @Provides
     @Singleton
     OkHttpClient providesClient(){
-        return new OkHttpClient();
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        return new OkHttpClient.Builder()
+                .addInterceptor(interceptor)
+                .readTimeout(60, TimeUnit.SECONDS)
+                .connectTimeout(60, TimeUnit.SECONDS)
+                .build();
     }
 
     @Provides
-    @Singleton
+    @Named("Crypto")
     Retrofit providesRetrofit(OkHttpClient client, GsonConverterFactory factory){
         return new Retrofit.Builder()
                 .client(client)
                 .addConverterFactory(factory)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .baseUrl(AppConstants.BASE_URL)
                 .build();
     }
 
     @Provides
+    @Named("Other")
+    Retrofit providesOtherRetrofit(OkHttpClient client, GsonConverterFactory factory){
+        return new Retrofit.Builder()
+                .client(client)
+                .addConverterFactory(factory)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .baseUrl(AppConstants.CURRENCY_URL)
+                .build();
+    }
+
+
+    @Provides
     @Singleton
-    ExchangeService providesExchangeService(Retrofit retrofit){
+    ExchangeService providesExchangeService(@Named("Crypto") Retrofit retrofit){
         return retrofit.create(ExchangeService.class);
+    }
+
+    @Provides
+    @Singleton
+    CurrencyService currencyService(@Named("Other") Retrofit retrofit){
+        return retrofit.create(CurrencyService.class);
     }
 }

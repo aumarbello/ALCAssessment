@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="crytoCurrencies">
+        <item>BTC</item>
+        <item>ETH</item>
+    </string-array>
+
+    <string-array name="otherCurrencies">
+        <item>NGN</item>
+        <item>USD</item>
+        <item>EUR</item>
+        <item>GBP</item>
+        <item>CNY</item>
+        <item>INR</item>
+        <item>ILS</item>
+        <item>LAK</item>
+        <item>ANG</item>
+        <item>QAR</item>
+        <item>RUB</item>
+        <item>BRL</item>
+        <item>CHF</item>
+        <item>SCR</item>
+        <item>ZAR</item>
+        <item>SEK</item>
+        <item>TWD</item>
+        <item>UAH</item>
+        <item>UYU</item>
+        <item>TRY</item>
+    </string-array>
+
+    <string-array name="cryptoCurrenciesText">
+        <item>Bitcoin</item>
+        <item>Ether</item>
+    </string-array>
+
+    <string-array name="otherCurrenciesText">
+        <item>Naira</item>
+        <item>Dollar</item>
+        <item>Euro</item>
+        <item>British Pound</item>
+        <item>Chinese Yuan</item>
+        <item>Indian Rupee</item>
+        <item>Israel Shekel</item>
+        <item>Laos Kip</item>
+        <item>Netherlands Antilles Guilder</item>
+        <item>Qatar Riyal</item>
+        <item>Russian Ruble</item>
+        <item>Brazil Real</item>
+        <item>Switzerland Franc</item>
+        <item>Seychelles Rupee</item>
+        <item>South African Rand</item>
+        <item>Sweden Krona</item>
+        <item>Taiwan New Dollar</item>
+        <item>Ukraine Hryvnia</item>
+        <item>Uruguay Peso</item>
+        <item>Turkish Lira</item>
+    </string-array>
+</resources>

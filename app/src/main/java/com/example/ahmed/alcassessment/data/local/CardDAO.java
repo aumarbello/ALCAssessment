@@ -51,7 +51,7 @@ public class CardDAO {
 
     public void updateCard(Card card){
         database.update(DBSchema.tableName, getValues(card),
-                card.getUuid().toString(), new String[]{DBSchema.UUID});
+                DBSchema.UUID + " == ?", new String[]{card.getUuid().toString()});
     }
 
     private Cursor query(String whereClause, String[] args){
@@ -71,5 +71,11 @@ public class CardDAO {
             cursor.moveToNext();
         }
         return cardList;
+    }
+
+    public void deleteCard(Card card) {
+        database.delete(DBSchema.tableName,
+                DBSchema.UUID + " == ?",
+                new String[]{card.getUuid().toString()});
     }
 }

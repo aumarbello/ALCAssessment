@@ -18,7 +18,7 @@ public class CardWrapper extends CursorWrapper {
         Card card = new Card();
         String from = getString(getColumnIndex(DBSchema.currencyFrom));
         String to = getString(getColumnIndex(DBSchema.currencyTo));
-        float currentRate = getFloat(getColumnIndex(DBSchema.currentRate));
+        double currentRate = getDouble(getColumnIndex(DBSchema.currentRate));
         String uuid = getString(getColumnIndex(DBSchema.UUID));
         card.setAll(from, to, currentRate, uuid);
         return card;
