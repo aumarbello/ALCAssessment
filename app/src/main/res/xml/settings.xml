@@ -1,4 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <!--<SwitchPreference android:id="@+id/" -->
+    <PreferenceCategory android:title="@string/pref_general">
+    <SwitchPreference android:id="@+id/preload_random"
+        android:title="@string/preload_random_title"
+        android:summary="@string/preload_random_summary"
+        android:key="@string/preload_random_key"
+        android:defaultValue="false"
+        />
+
+    <ListPreference android:id="@+id/number_of_preload"
+        android:title="@string/preload_number_title"
+        android:summary="@string/preload_number_summary"
+        android:key="@string/preload_number_key"
+        android:dependency="@string/preload_random_key"
+        android:entries="@array/preload_entries"
+        android:entryValues="@array/preload_entries"
+        android:defaultValue="8"
+        />
+
+    <SwitchPreference android:id="@+id/two_way"
+        android:title="@string/two_way_title"
+        android:summary="@string/two_way_summary"
+        android:key="@string/two_way_key"
+        android:defaultValue="true"
+        />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/pref_about">
+        <Preference
+            android:selectable="false"
+            android:summary="@string/pref_about_summary"
+            />
+        <Preference
+            android:title="@string/pref_about_version"
+            android:summary="@string/pref_about_version_number"
+            />
+        <Preference android:title="@string/intent_git_title"
+            android:summary="@string/intent_git_summary">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/a-u-bello/ALCAssessment"/>
+        </Preference>
+    </PreferenceCategory>
 </PreferenceScreen>
