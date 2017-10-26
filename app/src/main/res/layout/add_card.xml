@@ -13,7 +13,7 @@
         <Spinner
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:id="@+id/otherDropDown"
+            android:id="@+id/cryptoDropDown"
             android:layout_weight="0.45"/>
         <ImageView
             android:layout_width="0dp"
@@ -24,7 +24,7 @@
         <Spinner
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:id="@+id/cryptoDropDown"
+            android:id="@+id/otherDropDown"
             android:layout_weight="0.45"/>
     </LinearLayout>
 
@@ -35,18 +35,17 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:id="@+id/otherDropDownText"
+            android:id="@+id/cryptoDropDownText"
             android:textSize="18sp"
             android:textColor="@android:color/black"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="10dp"
             android:layout_weight="0.5"/>
-
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:id="@+id/cryptoDropDownText"
+            android:id="@+id/otherDropDownText"
             android:textSize="18sp"
             android:textColor="@android:color/black"
             android:layout_marginLeft="20dp"

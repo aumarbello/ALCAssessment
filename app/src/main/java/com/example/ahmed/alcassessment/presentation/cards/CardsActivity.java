@@ -1,16 +1,21 @@
 package com.example.ahmed.alcassessment.presentation.cards;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.ahmed.alcassessment.R;
 import com.example.ahmed.alcassessment.data.model.Card;
 import com.example.ahmed.alcassessment.presentation.base.BaseActivity;
+import com.example.ahmed.alcassessment.presentation.settings.SettingsActivity;
 
 import java.util.List;
 
@@ -65,6 +70,24 @@ public class CardsActivity extends BaseActivity implements AddCardDialog.CallBac
             dialog.show(getSupportFragmentManager(), "Add Card");
             Toast.makeText(this, "Adding", Toast.LENGTH_SHORT).show();
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.list_menu, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        if (item.getItemId() == R.id.settings){
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     public void syncCard(Card card, int position) {
