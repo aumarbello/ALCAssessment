@@ -1,5 +1,6 @@
 package com.example.ahmed.alcassessment.presentation.cards;
 
+import android.graphics.Color;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -99,7 +100,11 @@ class CardHolder extends RecyclerView.ViewHolder {
                }
                return false;
            });
+           popupMenu.setOnDismissListener(dismissMenu ->
+                   itemView.setBackgroundColor(Color.WHITE));
+
            popupMenu.show();
+           itemView.setBackgroundColor(Color.LTGRAY);
        });
 
         itemView.setOnClickListener(view -> {

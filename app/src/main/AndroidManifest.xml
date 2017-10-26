@@ -22,6 +22,7 @@
         </activity>
         <activity android:name=".presentation.cards.CardsActivity"
             android:label="@string/exchange_cards"/>
+        <activity android:name=".presentation.settings.SettingsActivity" />
     </application>
 
 </manifest>
