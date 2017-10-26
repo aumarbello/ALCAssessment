@@ -55,4 +55,10 @@
         <item>Uruguay Peso</item>
         <item>Turkish Lira</item>
     </string-array>
+
+    <string-array name="preload_entries">
+        <item>4</item>
+        <item>8</item>
+        <item>12</item>
+    </string-array>
 </resources>
