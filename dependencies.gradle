@@ -8,7 +8,7 @@ allprojects{
 ext{
     //sdk and tools versions
     buildTool = "26.0.0"
-    minimumSdk = 15
+    minimumSdk = 16
     targetSdk = 26
     compiledSdk = 26
 
