@@ -14,6 +14,8 @@
     <string name="exchanged_value">NGN 0.0</string>
     <string name="menu">Menu</string>
     <string name="settings">Settings</string>
+
+    <!--Settings Strings-->
     <string name="preload_random_title">Preload List with Random Cards</string>
     <string name="preload_random_summary">Card list will be pre-loaded with random cards when the card list is empty</string>
     <string name="preload_random_key">key_preload_random</string>
