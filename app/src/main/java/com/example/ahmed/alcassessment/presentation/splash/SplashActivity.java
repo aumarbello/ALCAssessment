@@ -2,7 +2,9 @@ package com.example.ahmed.alcassessment.presentation.splash;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 
+import com.example.ahmed.alcassessment.R;
 import com.example.ahmed.alcassessment.data.local.CardDAO;
 import com.example.ahmed.alcassessment.presentation.base.BaseActivity;
 import com.example.ahmed.alcassessment.presentation.cards.CardsActivity;
@@ -21,6 +23,7 @@ public class SplashActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstance){
         super.onCreate(savedInstance);
         getComponent().inject(this);
+        PreferenceManager.setDefaultValues(this, R.xml.settings, false);
 
         cardDAO.open();
 

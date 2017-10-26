@@ -15,7 +15,7 @@
         android:dependency="@string/preload_random_key"
         android:entries="@array/preload_entries"
         android:entryValues="@array/preload_entries"
-        android:defaultValue="8"
+        android:defaultValue="2"
         />
 
     <SwitchPreference android:id="@+id/two_way"
