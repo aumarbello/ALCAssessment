@@ -1,5 +1,7 @@
 package com.example.ahmed.alcassessment.presentation.cards;
 
+import android.graphics.Color;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -13,42 +15,49 @@ import com.example.ahmed.alcassessment.data.model.Card;
 
 import java.util.Locale;
 
+import butterknife.BindArray;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by ahmed on 10/8/17.
  */
 
 class CardHolder extends RecyclerView.ViewHolder {
-    private TextView cryptCurrencySymbol;
-    private TextView otherCurrencySymbol;
-    private TextView cryptCurrencyText;
-    private TextView otherCurrencyText;
-    TextView currentRate;
-    private ImageView syncCard;
-    private ImageView deleteCard;
-    ProgressBar cardIsSyncing;
     private CardsActivity activity;
     private Card card;
-    private String[] crytoSymbols;
-    private String[] otherSymbols;
+
+    @BindView(R.id.menu)
+    ImageView menu;
+
+    @BindView(R.id.cryptoCurrency)
+    TextView cryptCurrencySymbol;
+
+    @BindView(R.id.otherCurrency)
+    TextView otherCurrencySymbol;
+
+    @BindView(R.id.textCryptCurrency)
+    TextView cryptCurrencyText;
+
+    @BindView(R.id.textOtherCurrency)
+    TextView otherCurrencyText;
+
+    @BindView(R.id.currentRate)
+    TextView currentRate;
+
+    @BindView(R.id.rate_in_sync)
+    ProgressBar cardIsSyncing;
+
+    @BindArray(R.array.crytoCurrencies)
+    String[] crytoSymbols;
+
+    @BindArray(R.array.otherCurrencies)
+    String[]  otherSymbols;
 
     CardHolder(View itemView, CardsActivity activity) {
         super(itemView);
         this.activity = activity;
-        cryptCurrencySymbol = itemView.findViewById(R.id.cryptoCurrency);
-        otherCurrencySymbol = itemView.findViewById(R.id.otherCurrency);
-
-        cryptCurrencyText = itemView.findViewById(R.id.textCryptCurrency);
-        otherCurrencyText = itemView.findViewById(R.id.textOtherCurrency);
-
-        currentRate = itemView.findViewById(R.id.currentRate);
-
-        syncCard = itemView.findViewById(R.id.sync_rates);
-        deleteCard = itemView.findViewById(R.id.delete_card);
-
-        cardIsSyncing = itemView.findViewById(R.id.rate_in_sync);
-
-        crytoSymbols = activity.getResources().getStringArray(R.array.crytoCurrencies);
-        otherSymbols = activity.getResources().getStringArray(R.array.otherCurrencies);
+        ButterKnife.bind(this, itemView);
     }
 
     void bindCard(Card card, int position){
@@ -76,13 +85,27 @@ class CardHolder extends RecyclerView.ViewHolder {
     }
 
    private void setListeners(int position){
-        syncCard.setOnClickListener(view -> {
-            activity.syncCard(card, position);
-            cardIsSyncing.setVisibility(View.VISIBLE);
-        });
+       menu.setOnClickListener(menuView -> {
+           PopupMenu popupMenu = new PopupMenu(activity, itemView);
+           popupMenu.inflate(R.menu.item_menu);
 
-        deleteCard.setOnClickListener(view ->
-                activity.deleteCard(card, position));
+           popupMenu.setOnMenuItemClickListener(item -> {
+               switch (item.getItemId()){
+                   case R.id.sync_rates:
+                       activity.syncCard(card, position);
+                       return true;
+                   case R.id.delete_card:
+                       activity.deleteCard(card, position);
+                       return true;
+               }
+               return false;
+           });
+           popupMenu.setOnDismissListener(dismissMenu ->
+                   itemView.setBackgroundColor(Color.WHITE));
+
+           popupMenu.show();
+           itemView.setBackgroundColor(Color.LTGRAY);
+       });
 
         itemView.setOnClickListener(view -> {
             activity.openConversionDialog(card);
