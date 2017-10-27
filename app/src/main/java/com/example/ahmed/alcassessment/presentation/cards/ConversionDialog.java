@@ -8,7 +8,6 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,11 +33,12 @@ public class ConversionDialog extends DialogFragment {
 
     }
 
-    public static ConversionDialog getInstance(Card card){
+    public static ConversionDialog getInstance(Card card, boolean addSwapButton){
         Bundle args = new Bundle();
         args.putDouble(DOUBLE_TAG, card.getCurrentRate());
         args.putString(FROM_TAG, card.getFrom());
         args.putString(TO_TAG, card.getTo());
+        args.putBoolean(SWAP, addSwapButton);
 
         ConversionDialog dialog = new ConversionDialog();
         dialog.setArguments(args);
@@ -73,6 +73,7 @@ public class ConversionDialog extends DialogFragment {
     private static final String DOUBLE_TAG = "CONVERSION_DIALOG_DOUBLE";
     private static final String FROM_TAG = "FROM_CURRENCY";
     private static final String TO_TAG = "TO_CURRENCY";
+    private static final String SWAP = "Swap Button";
     private String from;
     private String to;
     private String originalRelativeExchangeString;
@@ -82,6 +83,7 @@ public class ConversionDialog extends DialogFragment {
     private String originalExchangedAmount;
     private String swapExchangedAmount;
     private boolean isOriginal;
+    private boolean addSwapButton;
 
     @NonNull
     @Override
@@ -92,11 +94,9 @@ public class ConversionDialog extends DialogFragment {
 
         from = getArguments().getString(FROM_TAG);
         to = getArguments().getString(TO_TAG);
+        addSwapButton = getArguments().getBoolean(SWAP);
 
         setUpFields();
-
-        Log.d(TO_TAG, "Value to - " + to);
-        Log.d(FROM_TAG, "Value from - " + from);
 
         setUpViews();
 
@@ -132,26 +132,24 @@ public class ConversionDialog extends DialogFragment {
 
         builder.setTitle("Convert Currency Amount")
                 .setView(view)
-                .setNegativeButton("Clear", null)
-                .setNeutralButton("Swap", null)
                 .setPositiveButton("OK", null);
+
+        if (addSwapButton){
+            builder.setNeutralButton("Swap", null);
+        }
+
         AlertDialog dialog = builder.create();
         dialog.setOnShowListener(dialogInterface -> {
-            Button neutralButton = ((AlertDialog) dialogInterface).getButton
-                    (DialogInterface.BUTTON_NEUTRAL);
+            if (addSwapButton){
+                Button neutralButton = ((AlertDialog) dialogInterface).getButton
+                        (DialogInterface.BUTTON_NEUTRAL);
 
-            Button negativeButton = ((AlertDialog) dialogInterface).getButton
-                    (DialogInterface.BUTTON_NEGATIVE);
-            neutralButton.setOnClickListener(negativeView -> {
-                isOriginal = !isOriginal;
-                conversion_box.setText("");
-                setUpViews();
-            });
-            negativeButton.setOnClickListener(buttonView -> {
-                conversion_box.setText("");
-                conversion_box.requestFocus();
-                Log.d("Clear", "Received call to clear");
-            });
+                neutralButton.setOnClickListener(negativeView -> {
+                    isOriginal = !isOriginal;
+                    conversion_box.setText("");
+                    setUpViews();
+                });
+            }
         });
         return dialog;
     }
@@ -265,21 +263,4 @@ public class ConversionDialog extends DialogFragment {
         }
         return "";
     }
-
-//    private void swapViews(){
-//        View firstView = currencySymbols.getChildAt(0);
-//        View secondView = currencySymbols.getChildAt(1);
-//        View thirdView = currencySymbols.getChildAt(2);
-//        currencySymbols.removeAllViews();
-//
-//        //todo recalculate exchange rate, up date exchange rate view, and converted amount view
-//
-//        currencySymbols.addView(thirdView);
-//        currencySymbols.addView(secondView);
-//        currencySymbols.addView(firstView);
-//
-//        if (isOriginal){
-//
-//        }
-//    }
 }

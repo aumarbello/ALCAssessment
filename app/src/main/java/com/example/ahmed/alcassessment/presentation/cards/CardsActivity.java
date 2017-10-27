@@ -13,14 +13,17 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.ahmed.alcassessment.R;
+import com.example.ahmed.alcassessment.data.local.Prefs;
 import com.example.ahmed.alcassessment.data.model.Card;
 import com.example.ahmed.alcassessment.presentation.base.BaseActivity;
 import com.example.ahmed.alcassessment.presentation.settings.SettingsActivity;
 
 import java.util.List;
+import java.util.Random;
 
 import javax.inject.Inject;
 
+import butterknife.BindArray;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -29,9 +32,13 @@ import butterknife.Unbinder;
  * Created by ahmed on 10/6/17.
  */
 
-public class CardsActivity extends BaseActivity implements AddCardDialog.CallBack {
+public class CardsActivity extends BaseActivity
+        implements AddCardDialog.CallBack {
     @Inject
     CardsPresenter presenter;
+
+    @Inject
+    Prefs prefs;
 
     @BindView(R.id.card_list)
     RecyclerView cardList;
@@ -41,6 +48,12 @@ public class CardsActivity extends BaseActivity implements AddCardDialog.CallBac
 
     @BindView(R.id.add_card)
     FloatingActionButton addCard;
+
+    @BindArray(R.array.crytoCurrencies)
+    String[] crytoSymbols;
+
+    @BindArray(R.array.otherCurrencies)
+    String[] otherSymbols;
 
     private CardAdapter adapter;
     private Unbinder unbinder;
@@ -70,6 +83,10 @@ public class CardsActivity extends BaseActivity implements AddCardDialog.CallBac
             dialog.show(getSupportFragmentManager(), "Add Card");
             Toast.makeText(this, "Adding", Toast.LENGTH_SHORT).show();
         });
+
+        if (prefs.createRandomCard() && !cards.isEmpty()){
+            createRandomCards(prefs.numberOfCards());
+        }
     }
 
     @Override
@@ -109,7 +126,9 @@ public class CardsActivity extends BaseActivity implements AddCardDialog.CallBac
     }
 
     public void openConversionDialog(Card card) {
-        ConversionDialog dialog = ConversionDialog.getInstance(card);
+        boolean addSwapButton  = prefs.twoWayExchange();
+
+        ConversionDialog dialog = ConversionDialog.getInstance(card, addSwapButton);
         dialog.show(getSupportFragmentManager(), "Conversion Dialog");
     }
 
@@ -146,7 +165,7 @@ public class CardsActivity extends BaseActivity implements AddCardDialog.CallBac
        if (isSyncing){
            presenter.updateCard(card);
            adapter.noChangeInExchangeRate(card,
-                   previousRate == (double) card.getCurrentRate());
+                   previousRate == card.getCurrentRate());
 //           if(previousRate == (double) card.getCurrentRate()){
 //
 //               Log.d("Activity", "Same rates not notifying adapter");
@@ -173,5 +192,24 @@ public class CardsActivity extends BaseActivity implements AddCardDialog.CallBac
             int pos = adapter.getItemCount() - 1;
             adapter.notifyItemChanged(pos);
         }
+    }
+
+    private void createRandomCards(int cardCount) {
+        for (int a  = 0; a < cardCount; a++){
+            createCard();
+
+            // TODO: 10/27/17 wait sometime before adding next
+
+        }
+    }
+
+    private void createCard() {
+        int cryptoCurrency = new Random().nextInt(1);
+        int otherCurrency = new Random().nextInt(19);
+
+        String from = crytoSymbols[cryptoCurrency];
+        String to = otherSymbols[otherCurrency];
+
+        addCard(from, to);
     }
 }
