@@ -22,17 +22,17 @@ public class Prefs {
         resources = context.getResources();
     }
 
-    public static boolean createRandomCard(){
+    public boolean createRandomCard(){
         return preferences.getBoolean(resources.getString
                 (R.string.preload_random_key), false);
     }
 
-    public static boolean twoWayExchange(){
+    public boolean twoWayExchange(){
         return preferences.getBoolean(resources.getString(R.string.two_way_key),
                 true);
     }
 
-    public static int numberOfCards(){
+    public int numberOfCards(){
         return Integer.valueOf(preferences.getString(resources.getString
                 (R.string.preload_number_key), "8"));
     }
