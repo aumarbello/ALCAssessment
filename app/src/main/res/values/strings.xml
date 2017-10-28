@@ -32,4 +32,7 @@
     <string name="pref_about_version_number">1.0</string>
     <string name="intent_git_title">Code</string>
     <string name="intent_git_summary">View App Source Code</string>
+    <string name="list_layout_title">Layout Type Of Card List</string>
+    <string name="list_layout_dialog_title">List Layout</string>
+    <string name="list_layout_key">key_list_layout</string>
 </resources>
