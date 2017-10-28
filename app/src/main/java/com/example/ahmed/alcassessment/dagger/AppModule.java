@@ -3,8 +3,6 @@ package com.example.ahmed.alcassessment.dagger;
 import android.app.Application;
 import android.content.Context;
 
-import com.example.ahmed.alcassessment.data.local.CardDAO;
-
 import javax.inject.Singleton;
 
 import dagger.Module;
