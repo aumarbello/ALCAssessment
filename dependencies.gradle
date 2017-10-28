@@ -20,10 +20,6 @@ ext{
     butterKnifeVersion = "8.5.1"
     retrofitVersion = "2.3.0"
     okhttpVersion = '3.8.0'
-    autoValueVersion = '1.4'
-    autoValueGsonVersion = '0.4.6'
-    autoValueParcelVersion = '0.2.5'
-    autoValueParcelVersion = '0.2.5'
     gsonVersion = '2.8.0'
 
     //testVersions
@@ -67,15 +63,6 @@ ext{
     okHttpDependencies = [
             okhttp: "com.squareup.okhttp3:okhttp:${okhttpVersion}",
             logging : "com.squareup.okhttp3:logging-interceptor:${okhttpVersion}",
-    ]
-
-    autoValueDependencies = [
-            autoValueApt     : "com.google.auto.value:auto-value:${autoValueVersion}",
-            autoValueProvided: "com.jakewharton.auto.value:auto-value-annotations:${autoValueVersion}",
-            gsonApt          : "com.ryanharter.auto.value:auto-value-gson:${autoValueGsonVersion}",
-            gsonProvided     : "com.ryanharter.auto.value:auto-value-gson:${autoValueGsonVersion}",
-            parcelApt        : "com.ryanharter.auto.value:auto-value-parcel:${autoValueParcelVersion}",
-            parcelAdapter    : "com.ryanharter.auto.value:auto-value-parcel-adapter:${autoValueParcelVersion}",
     ]
 
     otherDependencies = [
