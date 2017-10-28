@@ -1,8 +1,5 @@
 package com.example.ahmed.alcassessment.data.remote;
 
-import com.example.ahmed.alcassessment.data.model.RateResponseEUR;
-import com.example.ahmed.alcassessment.data.model.RateResponseUSD;
-
 import io.reactivex.Single;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
