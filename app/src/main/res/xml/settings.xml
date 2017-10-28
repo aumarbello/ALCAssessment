@@ -10,13 +10,12 @@
 
     <ListPreference android:id="@+id/number_of_preload"
         android:title="@string/preload_number_title"
-        android:summary="@string/preload_number_summary"
         android:key="@string/preload_number_key"
         android:dependency="@string/preload_random_key"
         android:dialogTitle="@string/preload_number_title"
         android:entries="@array/preload_entries"
         android:entryValues="@array/preload_entries"
-        android:defaultValue="8"
+        android:defaultValue="@string/number_of_preload_defVal"
         />
 
     <SwitchPreference android:id="@+id/two_way"
