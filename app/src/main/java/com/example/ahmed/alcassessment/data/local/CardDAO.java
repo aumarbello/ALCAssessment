@@ -24,7 +24,7 @@ public class CardDAO {
     private SQLHelper helper;
 
     @Inject
-    public CardDAO(Context context){
+    CardDAO(Context context){
         helper = new SQLHelper(context);
     }
 
