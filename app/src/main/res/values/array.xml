@@ -13,13 +13,13 @@
         <item>CNY</item>
         <item>INR</item>
         <item>ILS</item>
-        <item>LAK</item>
-        <item>ANG</item>
+        <item>HKD</item>
+        <item>PHP</item>
         <item>QAR</item>
         <item>RUB</item>
         <item>BRL</item>
         <item>CHF</item>
-        <item>SCR</item>
+        <item>MYR</item>
         <item>ZAR</item>
         <item>SEK</item>
         <item>TWD</item>
@@ -41,13 +41,13 @@
         <item>Chinese Yuan</item>
         <item>Indian Rupee</item>
         <item>Israel Shekel</item>
-        <item>Laos Kip</item>
-        <item>Netherlands Antilles Guilder</item>
+        <item>Hong Kong Dollar</item>
+        <item>Philippine Peso</item>
         <item>Qatar Riyal</item>
         <item>Russian Ruble</item>
         <item>Brazil Real</item>
         <item>Switzerland Franc</item>
-        <item>Seychelles Rupee</item>
+        <item>Malaysian Ringgit</item>
         <item>South African Rand</item>
         <item>Sweden Krona</item>
         <item>Taiwan New Dollar</item>
