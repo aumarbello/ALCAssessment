@@ -27,7 +27,7 @@ import butterknife.Unbinder;
 /**
  * Created by ahmed on 10/10/17.
  */
-
+@SuppressWarnings("deprecation")
 public class ConversionDialog extends DialogFragment {
     public ConversionDialog(){
 
@@ -149,7 +149,12 @@ public class ConversionDialog extends DialogFragment {
                     conversion_box.setText("");
                     setUpViews();
                 });
+
+                neutralButton.setTextColor(getResources().getColor(R.color.colorAccent));
             }
+
+            ((AlertDialog)dialogInterface).getButton(DialogInterface.BUTTON_POSITIVE)
+                    .setTextColor(getResources().getColor(R.color.colorAccent));
         });
         return dialog;
     }
