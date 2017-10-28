@@ -39,6 +39,9 @@ public class SettingsActivity extends BaseActivity {
             if (key.equals(getString(R.string.preload_number_key))){
                 ListPreference numberOfCards = (ListPreference) findPreference(key);
                 numberOfCards.setSummary(preference.getString(key, "8"));
+            }else if (key.equals(getString(R.string.list_layout_key))){
+                ListPreference listType = (ListPreference) findPreference(key);
+                listType.setSummary(preference.getString(key, "Grid"));
             }
         }
 
