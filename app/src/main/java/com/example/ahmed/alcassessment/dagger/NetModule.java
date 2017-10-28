@@ -1,6 +1,5 @@
 package com.example.ahmed.alcassessment.dagger;
 
-import com.example.ahmed.alcassessment.data.remote.CurrencyService;
 import com.example.ahmed.alcassessment.data.remote.ExchangeService;
 import com.example.ahmed.alcassessment.utils.AppConstants;
 import com.example.ahmed.alcassessment.utils.GsonAdapterFactory;
