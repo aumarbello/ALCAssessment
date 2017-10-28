@@ -36,4 +36,8 @@ public class Prefs {
         return Integer.valueOf(preferences.getString(resources.getString
                 (R.string.preload_number_key), "8"));
     }
+
+    public String getListType(){
+        return preferences.getString(resources.getString(R.string.list_layout_key), "Grid");
+    }
 }
