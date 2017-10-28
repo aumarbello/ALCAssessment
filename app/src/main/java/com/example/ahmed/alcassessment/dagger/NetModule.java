@@ -2,7 +2,6 @@ package com.example.ahmed.alcassessment.dagger;
 
 import com.example.ahmed.alcassessment.data.remote.ExchangeService;
 import com.example.ahmed.alcassessment.utils.AppConstants;
-import com.example.ahmed.alcassessment.utils.GsonAdapterFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -27,7 +26,6 @@ public class NetModule {
     @Singleton
     Gson providesGson(){
         return new GsonBuilder()
-                .registerTypeAdapterFactory(GsonAdapterFactory.create())
                 .create();
     }
 
