@@ -20,7 +20,6 @@
     <string name="preload_random_summary">Card list will be pre-loaded with random cards when the card list is empty</string>
     <string name="preload_random_key">key_preload_random</string>
     <string name="preload_number_title">Number of cards</string>
-    <string name="preload_number_summary">Random cards will be created up corresponding to the number selected</string>
     <string name="preload_number_key">key_preload_number</string>
     <string name="two_way_key">key_two_way</string>
     <string name="two_way_summary">Allow for the swapping of currencies in an exchange</string>
@@ -35,4 +34,9 @@
     <string name="list_layout_title">Layout Type Of Card List</string>
     <string name="list_layout_dialog_title">List Layout</string>
     <string name="list_layout_key">key_list_layout</string>
+    <string name="list_type_def">Grid</string>
+    <string name="number_of_preload_defVal">8</string>
+
+    <!--Other Strings-->
+
 </resources>

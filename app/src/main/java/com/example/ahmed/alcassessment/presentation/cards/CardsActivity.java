@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
@@ -76,7 +77,12 @@ public class CardsActivity extends BaseActivity
         adapter = new CardAdapter(cards, this);
         dialog = AddCardDialog.getInstance();
 
-        cardList.setLayoutManager(new GridLayoutManager(this, 2));
+        if (prefs.getListType() == 0){
+            cardList.setLayoutManager(new LinearLayoutManager(this));
+        }else {
+            cardList.setLayoutManager(new GridLayoutManager(this, 2));
+        }
+
         cardList.setAdapter(adapter);
 
         addCard.setOnClickListener(view -> {
