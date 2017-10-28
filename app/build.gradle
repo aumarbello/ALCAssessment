@@ -52,7 +52,6 @@ dependencies {
     def butterKnifeDep = rootProject.ext.butterKnifeDependencies
     def retrofitDef = rootProject.ext.retrofitDependencies
     def okHttpDep = rootProject.ext.okHttpDependencies
-    def autoValueDep = rootProject.ext.autoValueDependencies
     def otherDep = rootProject.ext.otherDependencies
     def testDep = rootProject.ext.testDependencies
     def espressoExcludeDep = rootProject.ext.espressoExcludeGroups
@@ -88,14 +87,6 @@ dependencies {
     //okHttp
     compile okHttpDep.okhttp
     compile okHttpDep.logging
-
-    //autoValue
-    annotationProcessor autoValueDep.autoValueApt
-    provided autoValueDep.autoValueProvided
-    annotationProcessor autoValueDep.gsonApt
-    provided autoValueDep.gsonProvided
-    annotationProcessor autoValueDep.parcelApt
-    compile autoValueDep.parcelAdapter
 
     //others
     compile otherDep.gsonDependency
