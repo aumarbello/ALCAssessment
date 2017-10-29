@@ -6,6 +6,7 @@ import com.example.ahmed.alcassessment.R;
 import com.example.ahmed.alcassessment.data.local.CardDAO;
 import com.example.ahmed.alcassessment.data.model.Card;
 import com.example.ahmed.alcassessment.data.remote.ExchangeService;
+import com.example.ahmed.alcassessment.utils.NetworkUtil;
 
 import org.json.JSONObject;
 
@@ -69,6 +70,11 @@ public class CardsPresenter {
     }
 
     void getRateForCard(Card card) {
+        if (!NetworkUtil.isNetworkConnected(activity)){
+            activity.showExchangeRateForCardError(card);
+            return;
+        }
+
         String crypt;
 
         if (card.getFrom().equals("Bitcoin"))
