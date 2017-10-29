@@ -9,7 +9,7 @@
     <string name="current_exchange_rate">Current Exchange Rate</string>
     <string name="sync_rates">Sync Rates</string>
     <string name="delete_card">Delete Card</string>
-    <string name="faied_to_retrieve">Failed to retrieve rate</string>
+    <string name="faied_to_retrieve">N/A</string>
     <string name="enter_rate_to_convert">Enter Amount to convert</string>
     <string name="exchanged_value">NGN 0.0</string>
     <string name="menu">Menu</string>
