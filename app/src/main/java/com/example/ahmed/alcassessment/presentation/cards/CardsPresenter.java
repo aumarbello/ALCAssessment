@@ -71,7 +71,7 @@ public class CardsPresenter {
 
     void getRateForCard(Card card) {
         if (!NetworkUtil.isNetworkConnected(activity)){
-            //show dialog or snackBar to inform user of network connectivity status
+            //todo show dialog or snackBar to inform user of network connectivity status
             activity.showExchangeRateForCardError(card);
             return;
         }
