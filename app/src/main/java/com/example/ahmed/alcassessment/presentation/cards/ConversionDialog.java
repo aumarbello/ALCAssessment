@@ -113,6 +113,12 @@ public class ConversionDialog extends DialogFragment {
                                       int start,
                                       int before,
                                       int count) {
+
+                if (originalExchangeRate == 123){
+                    //// TODO: 10/29/17 show toast, snackbar abt the exchange rate
+                    return;
+                }
+
                 String amount = conversion_box.getText().toString().equals("") ?
                         "0" : conversion_box.getText().toString();
                 Double dRate = Double.valueOf(amount);
