@@ -124,11 +124,11 @@ public class CardsPresenter {
                 return otherSymbols[5];
             case "Israel Shekel":
                 return otherSymbols[6];
-            case "Laos Kip":
+            case "Hong Kong Dollar":
                 return otherSymbols[7];
-            case "Netherlands Antilles Guilder":
+            case "Philippine Peso":
                 return otherSymbols[8];
-            case "Qatari Riyal":
+            case "Qatar Riyal":
                 return otherSymbols[9];
             case "Russian Ruble":
                 return otherSymbols[10];
@@ -136,7 +136,7 @@ public class CardsPresenter {
                 return otherSymbols[11];
             case "Switzerland Franc":
                 return otherSymbols[12];
-            case "Seychelles Rupee":
+            case "Malaysian Ringgit":
                 return otherSymbols[13];
             case "South African Rand":
                 return otherSymbols[14];
