@@ -45,6 +45,10 @@ public class ConversionDialog extends DialogFragment {
         return dialog;
     }
 
+    interface Callback{
+        void showExchangeSnackBar();
+    }
+
     @BindView(R.id.convertFrom)
     TextView convertFrom;
 
@@ -84,6 +88,7 @@ public class ConversionDialog extends DialogFragment {
     private String swapExchangedAmount;
     private boolean isOriginal;
     private boolean addSwapButton;
+    private Callback callback;
 
     @NonNull
     @Override
@@ -95,6 +100,8 @@ public class ConversionDialog extends DialogFragment {
         from = getArguments().getString(FROM_TAG);
         to = getArguments().getString(TO_TAG);
         addSwapButton = getArguments().getBoolean(SWAP);
+
+        callback = (Callback) getActivity();
 
         setUpFields();
 
@@ -115,7 +122,8 @@ public class ConversionDialog extends DialogFragment {
                                       int count) {
 
                 if (originalExchangeRate == 123){
-                    //// TODO: 10/29/17 show toast, snackbar abt the exchange rate
+                    getDialog().dismiss();
+                    callback.showExchangeSnackBar();
                     return;
                 }
 

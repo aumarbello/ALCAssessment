@@ -3,6 +3,7 @@ package com.example.ahmed.alcassessment.presentation.cards;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,7 +12,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.example.ahmed.alcassessment.R;
 import com.example.ahmed.alcassessment.data.local.Prefs;
@@ -34,7 +34,8 @@ import butterknife.Unbinder;
  */
 
 public class CardsActivity extends BaseActivity
-        implements AddCardDialog.CallBack {
+        implements AddCardDialog.CallBack,
+        ConversionDialog.Callback {
     @Inject
     CardsPresenter presenter;
 
@@ -85,10 +86,8 @@ public class CardsActivity extends BaseActivity
 
         cardList.setAdapter(adapter);
 
-        addCard.setOnClickListener(view -> {
-            dialog.show(getSupportFragmentManager(), "Add Card");
-            Toast.makeText(this, "Adding", Toast.LENGTH_SHORT).show();
-        });
+        addCard.setOnClickListener(view ->
+                dialog.show(getSupportFragmentManager(), "Add Card"));
 
         if (prefs.createRandomCard() && !cards.isEmpty()){
             createRandomCards(prefs.numberOfCards());
@@ -118,14 +117,9 @@ public class CardsActivity extends BaseActivity
         isSyncing = true;
         previousRate = card.getCurrentRate();
         presenter.getRateForCard(card);
-        Toast.makeText(this, "Syncing",
-                Toast.LENGTH_SHORT).show();
     }
 
     public void deleteCard(Card card, int position) {
-        Toast.makeText(this, "Deleting",
-                Toast.LENGTH_SHORT).show();
-
         adapter.deleteCard(card);
         presenter.deleteCard(card);
         adapter.notifyItemRemoved(position);
@@ -142,7 +136,6 @@ public class CardsActivity extends BaseActivity
         adapter.addCard(card);
         int position = adapter.getItemCount();
         adapter.notifyItemInserted(position);
-        Log.d("Activity", "Call to add card to adapter");
 
     }
 
@@ -162,9 +155,6 @@ public class CardsActivity extends BaseActivity
         updateAfterAdding(card);
 
         presenter.getRateForCard(card);
-
-        Toast.makeText(this, "Received currencies - " + from + " and - " + to,
-                Toast.LENGTH_SHORT).show();
     }
 
    public void showExchangeRateForCard(Card card){
@@ -187,6 +177,7 @@ public class CardsActivity extends BaseActivity
             adapter.notifyItemChanged(syncPosition);
             isSyncing = false;
         }else {
+            presenter.addCard(card);
             card.setCurrentRate(123);
             int pos = adapter.getItemCount() - 1;
             adapter.notifyItemChanged(pos);
@@ -210,5 +201,19 @@ public class CardsActivity extends BaseActivity
         String to = otherSymbols[otherCurrency];
 
         addCard(from, to);
+    }
+
+    @Override
+    public void showExchangeSnackBar() {
+      makeSnackBar("Invalid Exchange Rate, ReSync Card.");
+    }
+
+    void showNetworkBar(){
+        makeSnackBar("Network Unavailable, kindly check connection");
+    }
+
+    private void makeSnackBar(String message){
+        Snackbar.make(refreshLayout, message,
+                Snackbar.LENGTH_SHORT);
     }
 }
