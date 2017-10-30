@@ -41,10 +41,7 @@ public class CardsPresenter {
     }
 
     List<Card> getAllCards(){
-        List<Card> cardList = cardDAO.getAllCards();
-        Log.d(TAG, "Size of list from db - " + cardList.size());
-        //todo load cards in back round and update ui
-        return cardList;
+        return cardDAO.getAllCards();
     }
 
 
@@ -57,22 +54,22 @@ public class CardsPresenter {
         cardDAO.updateCard(card);
     }
 
-    public void updateCardDetails(Card card){
-        //todo call service and determine latest exchange rate
-    }
-
     void deleteCard(Card card){
         cardDAO.deleteCard(card);
     }
 
-    public void updateAllCardsDetails(List<Card> cardList){
+    void updateCardDetails(Card card){
+        //todo call service and determine latest exchange rate, to be used by updateAllCardsDetails
+    }
+
+    void updateAllCardsDetails(List<Card> cardList){
         //todo do the above for all cards
     }
 
     void getRateForCard(Card card) {
         if (!NetworkUtil.isNetworkConnected(activity)){
-            //todo show dialog or snackBar to inform user of network connectivity status
             activity.showExchangeRateForCardError(card);
+            activity.showNetworkBar();
             return;
         }
 
