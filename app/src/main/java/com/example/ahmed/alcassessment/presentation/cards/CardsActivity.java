@@ -89,12 +89,21 @@ public class CardsActivity extends BaseActivity
         addCard.setOnClickListener(view ->
                 dialog.show(getSupportFragmentManager(), "Add Card"));
 
+        prefOperations(cards);
+
+        refreshLayout.setOnRefreshListener(() ->
+                presenter.updateAllCardsDetails(cards));
+    }
+
+    private void prefOperations(List<Card> cards) {
         if (prefs.createRandomCard() && !cards.isEmpty()){
             createRandomCards(prefs.numberOfCards());
         }
 
-        refreshLayout.setOnRefreshListener(() ->
-                presenter.updateAllCardsDetails(cards));
+        if (prefs.refreshAll()){
+            refreshLayout.setRefreshing(true);
+            presenter.updateAllCardsDetails(cards);
+        }
     }
 
     @Override

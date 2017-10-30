@@ -41,4 +41,8 @@ public class Prefs {
         return Integer.valueOf(preferences.getString(resources.getString
                 (R.string.list_layout_key), "1"));
     }
+
+    public boolean refreshAll(){
+        return preferences.getBoolean(resources.getString(R.string.key_refresh_all), false);
+    }
 }
