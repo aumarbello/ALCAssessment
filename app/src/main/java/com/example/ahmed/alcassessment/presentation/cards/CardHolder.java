@@ -83,7 +83,7 @@ class CardHolder extends RecyclerView.ViewHolder {
             }else {
                 currentRate.setText(R.string.faied_to_retrieve);
             }
-        }else if (card.getCurrentRate() == 123){
+        }else if (card.getCurrentRate() == 1){
             isSyncing = false;
             cardIsSyncing.setVisibility(View.GONE);
             currentRate.setText(R.string.faied_to_retrieve);
