@@ -170,17 +170,9 @@ public class CardsActivity extends BaseActivity
    public void showExchangeRateForCard(Card card){
        if (isSyncing){
            presenter.updateCard(card);
-           adapter.noChangeInExchangeRate(card,
-                   previousRate == card.getCurrentRate());
-//           if(previousRate == (double) card.getCurrentRate()){
-//
-//               Log.d("Activity", "Same rates not notifying adapter");
-//           }else {
-               adapter.notifyItemChanged(syncPosition);
-//               Log.d("Activity", "Different rates notifying adapter");
-//           }
-           Log.d("Activity", "Changing item at - " + syncPosition);
-           Log.d("Activity", "Changing item at - " + syncPosition + " while syncing");
+           adapter.noChangeInExchangeRate(previousRate == card.getCurrentRate());
+           adapter.notifyItemChanged(syncPosition);
+           isSyncing = false;
        }else {
            presenter.addCard(card);
            int pos = adapter.getItemCount() - 1;
@@ -193,6 +185,7 @@ public class CardsActivity extends BaseActivity
         if (isSyncing){
             card.setCurrentRate(123);
             adapter.notifyItemChanged(syncPosition);
+            isSyncing = false;
         }else {
             card.setCurrentRate(123);
             int pos = adapter.getItemCount() - 1;

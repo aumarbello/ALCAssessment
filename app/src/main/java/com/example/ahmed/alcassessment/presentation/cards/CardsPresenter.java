@@ -96,8 +96,6 @@ public class CardsPresenter {
                             card.setCurrentRate(responseObject.getDouble
                                     (currencyCode));
 
-                            Log.d(TAG, "Received response - toString " +
-                                    responseBody.toString());
                             Log.d(TAG, "Card value - .string()" +
                                     responseString);
                             activity.showExchangeRateForCard(card);
@@ -134,7 +132,7 @@ public class CardsPresenter {
                 return otherSymbols[9];
             case "Russian Ruble":
                 return otherSymbols[10];
-            case "Brazilian Real":
+            case "Brazil Real":
                 return otherSymbols[11];
             case "Switzerland Franc":
                 return otherSymbols[12];

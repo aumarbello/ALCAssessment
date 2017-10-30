@@ -1,11 +1,9 @@
 package com.example.ahmed.alcassessment.presentation.cards;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,6 +11,8 @@ import com.example.ahmed.alcassessment.R;
 import com.example.ahmed.alcassessment.data.model.Card;
 
 import java.util.List;
+
+import ua.naiksoftware.threedotsprogress.ThreeDotsProgressView;
 
 /**
  * Created by ahmed on 10/8/17.
@@ -22,7 +22,7 @@ class CardAdapter extends RecyclerView.Adapter<CardHolder> {
     private List<Card> cardList;
     private CardsActivity activity;
     private TextView itemRate;
-    private ProgressBar rateSync;
+    private ThreeDotsProgressView rateSync;
 
     CardAdapter(List<Card> cardList, CardsActivity activity){
         this.cardList = cardList;
@@ -49,7 +49,6 @@ class CardAdapter extends RecyclerView.Adapter<CardHolder> {
     }
 
     void addCard(Card card){
-        Log.d("Adapter", "Size of list currently - " + cardList.size());
         cardList.add(card);
     }
 
@@ -57,14 +56,9 @@ class CardAdapter extends RecyclerView.Adapter<CardHolder> {
         cardList.remove(card);
     }
 
-    public void setCardList(List<Card> cardList) {
-        this.cardList = cardList;
-    }
-
-    void noChangeInExchangeRate(Card card, boolean isSame) {
+    void noChangeInExchangeRate(boolean isSame) {
         itemRate.setVisibility(View.VISIBLE);
 
-//        itemRate.setText(card.getCurrentRate());
         rateSync.setVisibility(View.GONE);
         if (isSame){
             Toast.makeText(activity, "No change in exchange rate",

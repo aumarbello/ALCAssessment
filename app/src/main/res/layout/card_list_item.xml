@@ -8,14 +8,11 @@
     tools:context=".presentation.cards.CardsActivity"
     app:cardElevation="20dp"
     app:cardCornerRadius="5dp"
-    android:layout_marginLeft="10dp"
-    android:layout_marginStart="10dp"
-    android:layout_marginEnd="10dp"
-    android:layout_marginRight="10dp"
-    android:layout_marginTop="10dp">
+    android:layout_margin="10dp">
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -117,13 +114,15 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:layout_centerInParent="true"
-            android:textColor="@android:color/black"/>
-        <ProgressBar
+            android:textColor="@android:color/black" />
+        <ua.naiksoftware.threedotsprogress.ThreeDotsProgressView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/divider_two"
             android:id="@+id/rate_in_sync"
+            android:layout_marginTop="10dp"
             android:layout_centerInParent="true"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            />
     </RelativeLayout>
 </android.support.v7.widget.CardView>

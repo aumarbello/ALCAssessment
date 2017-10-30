@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +17,7 @@ import java.util.Locale;
 import butterknife.BindArray;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import ua.naiksoftware.threedotsprogress.ThreeDotsProgressView;
 
 /**
  * Created by ahmed on 10/8/17.
@@ -46,7 +46,7 @@ class CardHolder extends RecyclerView.ViewHolder {
     TextView currentRate;
 
     @BindView(R.id.rate_in_sync)
-    ProgressBar cardIsSyncing;
+    ThreeDotsProgressView cardIsSyncing;
 
     @BindArray(R.array.crytoCurrencies)
     String[] crytoSymbols;
@@ -71,14 +71,16 @@ class CardHolder extends RecyclerView.ViewHolder {
         if (card.getCurrentRate() == 0.0){
             cardIsSyncing.setVisibility(View.VISIBLE);
             currentRate.setVisibility(View.INVISIBLE);
+            Log.d("tag", "Showing progress bar");
         }else if (card.getCurrentRate() == 123){
+            cardIsSyncing.setVisibility(View.GONE);
             currentRate.setTextSize(10);
             currentRate.setText(R.string.faied_to_retrieve);
         }else {
             String rate = String.format(Locale.ENGLISH, "1 %s : %.2f %s",
                     getCryptoSymbol(card.getFrom()), card.getCurrentRate(),
                     getSymbol(card.getTo()));
-
+            cardIsSyncing.setVisibility(View.GONE);
             currentRate.setText(rate);
         }
         setListeners(position);
@@ -92,6 +94,8 @@ class CardHolder extends RecyclerView.ViewHolder {
            popupMenu.setOnMenuItemClickListener(item -> {
                switch (item.getItemId()){
                    case R.id.sync_rates:
+                       currentRate.setVisibility(View.GONE);
+                       cardIsSyncing.setVisibility(View.VISIBLE);
                        activity.syncCard(card, position);
                        return true;
                    case R.id.delete_card:
