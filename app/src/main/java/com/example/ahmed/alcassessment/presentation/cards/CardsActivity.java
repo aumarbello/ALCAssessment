@@ -12,6 +12,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.example.ahmed.alcassessment.R;
 import com.example.ahmed.alcassessment.data.local.Prefs;
@@ -51,6 +53,9 @@ public class CardsActivity extends BaseActivity
     @BindView(R.id.add_card)
     FloatingActionButton addCard;
 
+    @BindView(R.id.empty_list)
+    TextView emptyList;
+
     @BindArray(R.array.crytoCurrencies)
     String[] crytoSymbols;
 
@@ -74,6 +79,10 @@ public class CardsActivity extends BaseActivity
         List<Card> cards = presenter.getAllCards();
 
         unbinder = ButterKnife.bind(this);
+
+        if (cards.isEmpty()){
+           emptyList.setVisibility(View.VISIBLE);
+        }
 
         adapter = new CardAdapter(cards, this);
         dialog = AddCardDialog.getInstance();
@@ -145,6 +154,9 @@ public class CardsActivity extends BaseActivity
     }
 
     private void updateAfterAdding(Card card){
+        if (emptyList.getVisibility() == View.VISIBLE){
+            emptyList.setVisibility(View.GONE);
+        }
         adapter.addCard(card);
         int position = adapter.getItemCount();
         adapter.notifyItemInserted(position);

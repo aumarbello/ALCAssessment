@@ -43,5 +43,6 @@
     <!--Other Strings-->
     <string name="exchange_rate_error_text">Invalid Exchange Rate, ReSync Card to get valid exchange rate.</string>
     <string name="network_error_text">Network Unavailable, kindly check connection</string>
+    <string name="empty_list_text">No Cards create yet, click the plus button to create your first card</string>
 
 </resources>
