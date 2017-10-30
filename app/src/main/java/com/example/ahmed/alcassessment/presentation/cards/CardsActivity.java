@@ -92,6 +92,9 @@ public class CardsActivity extends BaseActivity
         if (prefs.createRandomCard() && !cards.isEmpty()){
             createRandomCards(prefs.numberOfCards());
         }
+
+        refreshLayout.setOnRefreshListener(() ->
+                presenter.updateAllCardsDetails(cards));
     }
 
     @Override
@@ -159,7 +162,7 @@ public class CardsActivity extends BaseActivity
 
    public void showExchangeRateForCard(Card card){
        if (isSyncing){
-           presenter.updateCard(card);
+           presenter.updateCardDetailsDB(card);
            adapter.noChangeInExchangeRate(previousRate == card.getCurrentRate());
            adapter.notifyItemChanged(syncPosition);
            isSyncing = false;
@@ -187,7 +190,6 @@ public class CardsActivity extends BaseActivity
     private void createRandomCards(int cardCount) {
         for (int a  = 0; a < cardCount; a++){
             createCard();
-
             // TODO: 10/27/17 wait sometime before adding next
 
         }
@@ -215,5 +217,11 @@ public class CardsActivity extends BaseActivity
     private void makeSnackBar(String message){
         Snackbar.make(refreshLayout, message,
                 Snackbar.LENGTH_SHORT).show();
+    }
+
+    void refreshAdapter(List<Card> allCards) {
+        adapter.setCardList(allCards);
+        adapter.notifyDataSetChanged();
+        refreshLayout.setRefreshing(false);
     }
 }
