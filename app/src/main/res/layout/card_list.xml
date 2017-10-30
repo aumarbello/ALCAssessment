@@ -16,7 +16,17 @@
             app:layoutManager="android.support.v7.widget.GridLayoutManager"
             tools:listitem="@layout/card_list_item"/>
     </android.support.v4.widget.SwipeRefreshLayout>
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/empty_list_text"
+        android:id="@+id/empty_list"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textSize="15sp"
+        android:padding="10dp"
+        android:textColor="@android:color/black"
+        android:visibility="gone"/>
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
