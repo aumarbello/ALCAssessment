@@ -92,6 +92,7 @@ dependencies {
     compile otherDep.gsonDependency
     compile otherDep.injectDependency
     provided otherDep.javaxProvided
+    compile 'com.github.silvestrpredko:dot-progress-bar:1.1'
 
     compile espressoIdlingDep
 
