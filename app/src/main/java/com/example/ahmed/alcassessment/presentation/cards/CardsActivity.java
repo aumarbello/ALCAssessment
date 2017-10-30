@@ -173,12 +173,12 @@ public class CardsActivity extends BaseActivity
 
     public void showExchangeRateForCardError(Card card) {
         if (isSyncing){
-            card.setCurrentRate(123);
+            card.setCurrentRate(1);
             adapter.notifyItemChanged(syncPosition);
             isSyncing = false;
         }else {
             presenter.addCard(card);
-            card.setCurrentRate(123);
+            card.setCurrentRate(1);
             int pos = adapter.getItemCount() - 1;
             adapter.notifyItemChanged(pos);
         }
@@ -205,15 +205,15 @@ public class CardsActivity extends BaseActivity
 
     @Override
     public void showExchangeSnackBar() {
-      makeSnackBar("Invalid Exchange Rate, ReSync Card.");
+      makeSnackBar(getString(R.string.exchange_rate_error_text));
     }
 
     void showNetworkBar(){
-        makeSnackBar("Network Unavailable, kindly check connection");
+        makeSnackBar(getString(R.string.network_error_text));
     }
 
     private void makeSnackBar(String message){
         Snackbar.make(refreshLayout, message,
-                Snackbar.LENGTH_SHORT);
+                Snackbar.LENGTH_SHORT).show();
     }
 }
