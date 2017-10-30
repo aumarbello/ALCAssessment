@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,6 +49,9 @@ class CardHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.rate_in_sync)
     ThreeDotsProgressView cardIsSyncing;
 
+    @BindView(R.id.divider_two)
+    LinearLayout dividerTwo;
+
     @BindArray(R.array.crytoCurrencies)
     String[] crytoSymbols;
 
@@ -58,6 +62,12 @@ class CardHolder extends RecyclerView.ViewHolder {
         super(itemView);
         this.activity = activity;
         ButterKnife.bind(this, itemView);
+
+        if (activity.prefs.getListType() == 1){
+            cryptCurrencyText.setVisibility(View.GONE);
+            otherCurrencyText.setVisibility(View.GONE);
+            dividerTwo.setVisibility(View.GONE);
+        }
     }
 
     void bindCard(Card card, int position){
