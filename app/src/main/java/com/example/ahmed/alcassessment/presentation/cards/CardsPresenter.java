@@ -1,7 +1,5 @@
 package com.example.ahmed.alcassessment.presentation.cards;
 
-import android.util.Log;
-
 import com.example.ahmed.alcassessment.R;
 import com.example.ahmed.alcassessment.data.local.CardDAO;
 import com.example.ahmed.alcassessment.data.model.Card;
@@ -25,7 +23,6 @@ public class CardsPresenter {
     private CardDAO cardDAO;
     private CardsActivity activity;
     private ExchangeService service;
-    private static final String TAG = "CardPresenter";
     private String[] otherSymbols;
 
     @Inject
@@ -50,7 +47,7 @@ public class CardsPresenter {
         cardDAO.addCard(card);
     }
 
-    void updateCard(Card card){
+    void updateCardDetailsDB(Card card){
         cardDAO.updateCard(card);
     }
 
@@ -58,12 +55,40 @@ public class CardsPresenter {
         cardDAO.deleteCard(card);
     }
 
-    void updateCardDetails(Card card){
-        //todo call service and determine latest exchange rate, to be used by updateAllCardsDetails
+    private void updateCardDetails(Card card){
+        String crypt;
+
+        if (card.getFrom().equals("Bitcoin"))
+            crypt = "BTC";
+        else
+            crypt = "ETH";
+
+        String currencyCode = getCurrencySymbol(card.getTo());
+        service.getExchangeRate(crypt, currencyCode)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(//success
+                        responseBody -> {
+                            String responseString = responseBody.string();
+                            JSONObject responseObject = new JSONObject
+                                    (responseString);
+
+                            card.setCurrentRate(responseObject.getDouble
+                                    (currencyCode));
+                            updateCardDetailsDB(card);
+                        });
     }
 
     void updateAllCardsDetails(List<Card> cardList){
-        //todo do the above for all cards
+        if (!NetworkUtil.isNetworkConnected(activity)){
+            activity.showNetworkBar();
+            return;
+        }
+
+        for (Card card : cardList) {
+            updateCardDetails(card);
+            activity.refreshAdapter(cardDAO.getAllCards());
+        }
     }
 
     void getRateForCard(Card card) {
@@ -92,16 +117,10 @@ public class CardsPresenter {
 
                             card.setCurrentRate(responseObject.getDouble
                                     (currencyCode));
-
-                            Log.d(TAG, "Card value - .string()" +
-                                    responseString);
                             activity.showExchangeRateForCard(card);
                         },
                         //error
-                        throwable -> {
-                            Log.d(TAG, "Error", throwable);
-                            activity.showExchangeRateForCardError(card);
-                        });
+                        throwable -> activity.showExchangeRateForCardError(card));
 
     }
 

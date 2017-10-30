@@ -65,4 +65,8 @@ class CardAdapter extends RecyclerView.Adapter<CardHolder> {
                     Toast.LENGTH_SHORT).show();
         }
     }
+
+    void setCardList(List<Card> cardList) {
+        this.cardList = cardList;
+    }
 }
