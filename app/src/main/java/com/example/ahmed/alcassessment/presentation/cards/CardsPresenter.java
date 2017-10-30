@@ -117,7 +117,7 @@ public class CardsPresenter {
                 return otherSymbols[3];
             case "Chinese Yuan":
                 return otherSymbols[4];
-            case "Indian Rupees":
+            case "Indian Rupee":
                 return otherSymbols[5];
             case "Israel Shekel":
                 return otherSymbols[6];
