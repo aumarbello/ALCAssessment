@@ -3,12 +3,10 @@ package com.example.ahmed.alcassessment.presentation.cards;
 import android.graphics.Color;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.ahmed.alcassessment.R;
 import com.example.ahmed.alcassessment.data.model.Card;
@@ -27,6 +25,7 @@ import ua.naiksoftware.threedotsprogress.ThreeDotsProgressView;
 class CardHolder extends RecyclerView.ViewHolder {
     private CardsActivity activity;
     private Card card;
+    private boolean isSyncing;
 
     @BindView(R.id.menu)
     ImageView menu;
@@ -77,14 +76,16 @@ class CardHolder extends RecyclerView.ViewHolder {
 
         cryptCurrencyText.setText(card.getFrom());
         otherCurrencyText.setText(card.getTo());
-        Log.d("Holder", "Current rate - " + card.getCurrentRate());
         if (card.getCurrentRate() == 0.0){
-            cardIsSyncing.setVisibility(View.VISIBLE);
-            currentRate.setVisibility(View.INVISIBLE);
-            Log.d("tag", "Showing progress bar");
+            if (isSyncing){
+                cardIsSyncing.setVisibility(View.VISIBLE);
+                currentRate.setVisibility(View.INVISIBLE);
+            }else {
+                currentRate.setText(R.string.faied_to_retrieve);
+            }
         }else if (card.getCurrentRate() == 123){
+            isSyncing = false;
             cardIsSyncing.setVisibility(View.GONE);
-            currentRate.setTextSize(10);
             currentRate.setText(R.string.faied_to_retrieve);
         }else {
             String rate = String.format(Locale.ENGLISH, "1 %s : %.2f %s",
@@ -104,6 +105,7 @@ class CardHolder extends RecyclerView.ViewHolder {
            popupMenu.setOnMenuItemClickListener(item -> {
                switch (item.getItemId()){
                    case R.id.sync_rates:
+                       isSyncing = true;
                        currentRate.setVisibility(View.GONE);
                        cardIsSyncing.setVisibility(View.VISIBLE);
                        activity.syncCard(card, position);
@@ -121,11 +123,7 @@ class CardHolder extends RecyclerView.ViewHolder {
            itemView.setBackgroundColor(Color.LTGRAY);
        });
 
-        itemView.setOnClickListener(view -> {
-            activity.openConversionDialog(card);
-            Toast.makeText(activity, "Position of clicked item - " + position,
-                    Toast.LENGTH_SHORT).show();
-        });
+        itemView.setOnClickListener(view -> activity.openConversionDialog(card));
     }
 
     private String getCryptoSymbol(String currencyText){
