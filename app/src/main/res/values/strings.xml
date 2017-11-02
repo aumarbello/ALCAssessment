@@ -35,7 +35,7 @@
     <string name="list_layout_dialog_title">List Layout</string>
     <string name="list_layout_key">key_list_layout</string>
     <string name="list_type_def">Grid</string>
-    <string name="number_of_preload_defVal">8</string>
+    <string name="number_of_preload_defVal">4</string>
     <string name="refresh_all_title">Refresh All Rates on App Start</string>
     <string name="refresh_all_summary">All Exchange rates will be refreshed will refreshed every time the app is opened</string>
     <string name="key_refresh_all">key_refresh_all</string>

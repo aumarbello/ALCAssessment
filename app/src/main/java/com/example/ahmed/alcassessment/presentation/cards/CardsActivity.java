@@ -56,11 +56,11 @@ public class CardsActivity extends BaseActivity
     @BindView(R.id.empty_list)
     TextView emptyList;
 
-    @BindArray(R.array.crytoCurrencies)
-    String[] crytoSymbols;
+    @BindArray(R.array.cryptoCurrenciesText)
+    String[] crytoCurrencies;
 
-    @BindArray(R.array.otherCurrencies)
-    String[] otherSymbols;
+    @BindArray(R.array.otherCurrenciesText)
+    String[] otherCurrencies;
 
     private CardAdapter adapter;
     private Unbinder unbinder;
@@ -68,6 +68,8 @@ public class CardsActivity extends BaseActivity
     private int syncPosition;
     private boolean isSyncing;
     private double previousRate;
+    private boolean isAddingRandomCards;
+    private int randomCardCount;
 
     @Override
     protected void onCreate(Bundle savedInstance){
@@ -105,8 +107,9 @@ public class CardsActivity extends BaseActivity
     }
 
     private void prefOperations(List<Card> cards) {
-        if (prefs.createRandomCard() && !cards.isEmpty()){
-            createRandomCards(prefs.numberOfCards());
+        if (prefs.createRandomCard() && cards.isEmpty()){
+            createCard();
+            isAddingRandomCards = true;
         }
 
         if (prefs.refreshAll()){
@@ -144,6 +147,10 @@ public class CardsActivity extends BaseActivity
         adapter.deleteCard(card);
         presenter.deleteCard(card);
         adapter.notifyItemRemoved(position);
+
+        if (adapter.getItemCount() == 0){
+            emptyList.setVisibility(View.VISIBLE);
+        }
     }
 
     public void openConversionDialog(Card card) {
@@ -191,8 +198,12 @@ public class CardsActivity extends BaseActivity
            presenter.addCard(card);
            int pos = adapter.getItemCount() - 1;
            adapter.notifyItemChanged(pos);
-           Log.d("Activity", "Changing item at - " + pos);
        }
+
+       if (isAddingRandomCards && randomCardCount != prefs.numberOfCards()){
+           createCard();
+       }else
+           isAddingRandomCards = false;
     }
 
     public void showExchangeRateForCardError(Card card) {
@@ -206,24 +217,23 @@ public class CardsActivity extends BaseActivity
             int pos = adapter.getItemCount() - 1;
             adapter.notifyItemChanged(pos);
         }
-    }
 
-    private void createRandomCards(int cardCount) {
-        for (int a  = 0; a < cardCount; a++){
+        if (isAddingRandomCards && randomCardCount != prefs.numberOfCards()){
             createCard();
-            // TODO: 10/27/17 wait sometime before adding next
-
-        }
+        }else
+            isAddingRandomCards = false;
     }
 
     private void createCard() {
         int cryptoCurrency = new Random().nextInt(1);
         int otherCurrency = new Random().nextInt(19);
 
-        String from = crytoSymbols[cryptoCurrency];
-        String to = otherSymbols[otherCurrency];
+        String from = crytoCurrencies[cryptoCurrency];
+        String to = otherCurrencies[otherCurrency];
 
         addCard(from, to);
+
+        randomCardCount++;
     }
 
     @Override
