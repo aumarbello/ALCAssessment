@@ -34,7 +34,7 @@ public class Prefs {
 
     public int numberOfCards(){
         return Integer.valueOf(preferences.getString(resources.getString
-                (R.string.preload_number_key), "8"));
+                (R.string.preload_number_key), "4"));
     }
 
     public int getListType(){
