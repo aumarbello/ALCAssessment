@@ -29,8 +29,6 @@ public class SettingsActivity extends BaseActivity {
 
         getComponent().inject(this);
 
-        overridePendingTransition(0, 0);
-
         //Summaries
         listSummary = prefs.getListType() == 0 ? "List" : "Grid";
         numberSummary = prefs.numberOfCards() + "";

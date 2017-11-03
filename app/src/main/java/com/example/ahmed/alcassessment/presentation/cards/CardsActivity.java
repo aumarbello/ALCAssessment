@@ -8,7 +8,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -77,7 +76,6 @@ public class CardsActivity extends BaseActivity
         getComponent().inject(this);
         presenter.AttachView(this);
         setContentView(R.layout.card_list);
-        overridePendingTransition(0, 0);
         List<Card> cards = presenter.getAllCards();
 
         unbinder = ButterKnife.bind(this);
@@ -97,8 +95,12 @@ public class CardsActivity extends BaseActivity
 
         cardList.setAdapter(adapter);
 
-        addCard.setOnClickListener(view ->
-                dialog.show(getSupportFragmentManager(), "Add Card"));
+        addCard.setOnClickListener(view -> {
+            if (dialog.isAdded()){
+                return;
+            }
+            dialog.show(getSupportFragmentManager(), "Add Card");
+        });
 
         prefOperations(cards);
 
@@ -198,7 +200,6 @@ public class CardsActivity extends BaseActivity
            presenter.addCard(card);
            int pos = adapter.getItemCount() - 1;
            adapter.notifyItemChanged(pos);
-           Log.d("Activity", "Called adapter on change");
        }
 
        if (isAddingRandomCards && randomCardCount != prefs.numberOfCards()){

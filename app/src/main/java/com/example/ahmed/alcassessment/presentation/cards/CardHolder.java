@@ -26,6 +26,7 @@ import ua.naiksoftware.threedotsprogress.ThreeDotsProgressView;
 class CardHolder extends RecyclerView.ViewHolder {
     private CardsActivity activity;
     private Card card;
+    private boolean isSyncing;
 
     @BindView(R.id.menu)
     ImageView menu;
@@ -77,6 +78,10 @@ class CardHolder extends RecyclerView.ViewHolder {
         cryptCurrencyText.setText(card.getFrom());
         otherCurrencyText.setText(card.getTo());
         if (card.getCurrentRate() == 0.0){
+            cardIsSyncing.setVisibility(View.GONE);
+            currentRate.setText(R.string.faied_to_retrieve);
+        }
+        else if (card.getCurrentRate() == 0.0 && isSyncing){
             cardIsSyncing.setVisibility(View.VISIBLE);
             currentRate.setVisibility(View.INVISIBLE);
         }else if (card.getCurrentRate() == 1){
@@ -101,6 +106,7 @@ class CardHolder extends RecyclerView.ViewHolder {
            popupMenu.setOnMenuItemClickListener(item -> {
                switch (item.getItemId()){
                    case R.id.sync_rates:
+                       isSyncing = true;
                        currentRate.setVisibility(View.GONE);
                        cardIsSyncing.setVisibility(View.VISIBLE);
                        activity.syncCard(card, position);
