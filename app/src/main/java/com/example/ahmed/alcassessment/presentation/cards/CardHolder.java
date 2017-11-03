@@ -3,6 +3,7 @@ package com.example.ahmed.alcassessment.presentation.cards;
 import android.graphics.Color;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -88,6 +89,7 @@ class CardHolder extends RecyclerView.ViewHolder {
             cardIsSyncing.setVisibility(View.GONE);
             currentRate.setText(rate);
         }
+        Log.d("Holder", "bind Card called on exchanged");
         setListeners(position);
     }
 
@@ -140,7 +142,7 @@ class CardHolder extends RecyclerView.ViewHolder {
                 return otherSymbols[3];
             case "Chinese Yuan":
                 return otherSymbols[4];
-            case "Indian Rupees":
+            case "Indian Rupee":
                 return otherSymbols[5];
             case "Israel Shekel":
                 return otherSymbols[6];
@@ -152,7 +154,7 @@ class CardHolder extends RecyclerView.ViewHolder {
                 return otherSymbols[9];
             case "Russian Ruble":
                 return otherSymbols[10];
-            case "Brazilian Real":
+            case "Brazil Real":
                 return otherSymbols[11];
             case "Switzerland Franc":
                 return otherSymbols[12];
